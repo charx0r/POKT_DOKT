@@ -1,0 +1,10 @@
+[
+    {
+        "addr": "0021",
+        "url": "geth-mainnet:8545"
+    },
+    {
+        "addr": "0022",
+        "url": "geth-rinkeby:8545"
+    }
+]
