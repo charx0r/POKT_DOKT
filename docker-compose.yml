@@ -78,8 +78,8 @@ services:
       - "8546"
       - "30303"
     volumes:
-      - avalanche:/.avalanche
-    command: "--http-host=*"
+      - avalanche:/root/.avalanche
+    command: "/avalanchego/build/avalanchego --http-host=*"
     networks:
       - pocket
 
