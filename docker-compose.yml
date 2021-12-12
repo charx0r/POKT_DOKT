@@ -36,8 +36,8 @@ services:
       - 8081
     command: pocket start
     environment:
-      - POCKET_CORE_KEY: $(POCKET_CORE_KEY)
-      - POCKET_CORE_PASSPHRASE: $(POCKET_CORE_PASSPHRASE)
+      - POCKET_CORE_KEY=$POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
     volumes:
       - ./chains/chains.json:/home/app/.pocket/config/chains.json
       - pocket-data:/home/app/.pocket
