@@ -22,7 +22,7 @@ services:
       - "30303"
     volumes:
       - geth-goerli:/.goerli
-    command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode fast --datadir .goerli --verbosity 3"
+    command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3"
     networks:
       - pocket
 
@@ -34,7 +34,7 @@ services:
       - "30303"
     volumes:
       - geth-rinkeby:/.rinkeby
-    command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode fast --datadir .rinkeby --verbosity 3"
+    command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3"
     networks:
       - pocket
 
