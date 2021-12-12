@@ -9,7 +9,7 @@ services:
       - "8546"
       - "30303"
     volumes:
-      - geth-kpvan:/.kovan
+      - geth-kovan:/.kovan
     command: "--kovan"
     networks:
       - pocket
