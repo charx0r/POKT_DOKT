@@ -22,7 +22,7 @@ services:
       - "30303"
     volumes:
       - geth-mainnet:/.mainnet
-    command: "--rpc  --rpcapi eth,net --rpcaddr 0.0.0.0 --rpcport 8545 --rpcvhosts=* --syncmode fast --datadir .mainnet --verbosity 3"
+    command: "--http  --http.api personal,eth,net,web3 --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode fast --datadir .mainnet --verbosity 3"
     networks:
       - pocket
 
