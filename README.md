@@ -1,3 +1,1 @@
-# pokt_docker
-# POKT_DOKT
-# POKT_DOKT
+Beim lesen von chain.json braucht pokt schreibrechte?
