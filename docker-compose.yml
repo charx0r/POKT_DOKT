@@ -34,7 +34,7 @@ services:
     expose:
       - 26656
       - 8081
-    command: pocket start
+    command: pocket start --seeds=$POCKET_TEST_SEEDS --testnet
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
