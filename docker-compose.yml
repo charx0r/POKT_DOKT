@@ -34,13 +34,11 @@ services:
     expose:
       - 26656
       - 8081
-    #command: pocket accounts imports-armored /home/app/.pocket/secrets/pokt_account.json && pocket start
     command: pocket start
     environment:
-      - POCKET_CORE_KEY=$(POCKET_CORE_KEY)
-      - POCKET_CORE_PASSPHRASE=$(POCKET_CORE_PASSPHRASE)
+      - POCKET_CORE_KEY: $(POCKET_CORE_KEY)
+      - POCKET_CORE_PASSPHRASE: $(POCKET_CORE_PASSPHRASE)
     volumes:
-    #  - ../secrets:/home/app/.pocket/secrets
       - ./chains/chains.json:/home/app/.pocket/config/chains.json
       - pocket-data:/home/app/.pocket
     networks:
