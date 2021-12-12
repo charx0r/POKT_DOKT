@@ -26,7 +26,7 @@ services:
   #  networks:
   #    - pocket
 
-  pocket-service:
+  pocket-fullnode:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8081:8081"
