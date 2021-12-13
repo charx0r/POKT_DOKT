@@ -1,8 +1,10 @@
 #### Usage
+```
 git clone https://github.com/cventastic/POKT_DOKT.git
 cd POKT_DOKT
 chown -R 1005:1001 chains 
 docker-compose up -d
+```
 
 #### TODO !!!! 
 
@@ -31,3 +33,7 @@ MAINNET:
 ERIGON-Trace:
 - Bootstrap Archive
 - Monitoring
+
+AVALANCHE:
+- Archive?
+- Monitoring https://docs.avax.network/build/tools/dashboards/README
