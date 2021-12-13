@@ -97,7 +97,7 @@ services:
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
     volumes:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
-      - pocket-data:/home/app/.pocket
+      - pocket-testnet:/home/app/.pocket
     networks:
       - pocket
 
