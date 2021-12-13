@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-
   geth-goerli:
     image: ethereum/client-go:latest
     expose:
@@ -83,7 +82,26 @@ services:
     networks:
       - pocket
 
-  pocket-fullnode:
+  pocket-testnet:
+    image: poktnetwork/pocket-core:stagenet-latest
+    ports:
+      - "127.0.0.1:8082:8081"
+      - "127.0.0.1:26657:26656"
+    expose:
+      - 26656
+      - 8081
+    command: pocket start --seeds=$POCKET_TEST_SEEDS --testnet
+    #command: pocket start --simulateRelay
+    environment:
+      - POCKET_CORE_KEY=$POCKET_CORE_KEY_TEST
+      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
+    volumes:
+      - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
+      - pocket-data:/home/app/.pocket
+    networks:
+      - pocket
+
+  pocket-mainnet:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8081:8081"
@@ -91,13 +109,14 @@ services:
     expose:
       - 26656
       - 8081
-    command: pocket start --seeds=$POCKET_TEST_SEEDS --testnet
+    command: pocket start --seeds=$POCKET_MAIN_SEEDS --testnet
+    #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
     volumes:
-      - ./chains/chains.json:/home/app/.pocket/config/chains.json
-      - pocket-data:/home/app/.pocket
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - pocket-mainnet:/home/app/.pocket
     networks:
       - pocket
 
@@ -108,7 +127,8 @@ volumes:
   geth-mainnet:
   erigon-trace:
   avalanche:
-  pocket-data:
+  pocket-testnet:
+  pocket-mainnet:
 
 networks:
   pocket:

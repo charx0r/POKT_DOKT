@@ -1,6 +1,8 @@
 #### Usage
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
+git submodule update --init --recursive
+git pull --recurse-submodules
 cd POKT_DOKT
 chown -R 1005:1001 chains 
 docker-compose up -d
@@ -8,9 +10,10 @@ docker-compose up -d
 
 #### TODO !!!! 
 
+poly_submodule? -> relativer pfad vom submodule, macht probleme wenn man docker-compose vom root des repos aufruft.
+
 POKT: 
 - Beim lesen von chain.json braucht pokt rechte auf den chains ordner: chown -R 1005:1001 chains
-- command: pocket start --seeds=$POCKET_TEST_SEEDS --testnet ! testnet variable?!
 - Archive?
 - Monitoring
 
