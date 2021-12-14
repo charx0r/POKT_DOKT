@@ -33,7 +33,7 @@ services:
       - "30303"
     volumes:
       - geth-ropsten:/.ropsten
-    command: "--ropsten --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3"
+    command: "--ropsten --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .ropsten --verbosity 3"
     networks:
       - pocket
 
