@@ -2,5 +2,9 @@
     {
         "id": "0002",
         "url": "http://pocket-testnet:8081"
+    },
+    {
+        "id": "0020",
+        "url": "http://geth-goerli:8545"
     }
 ]
