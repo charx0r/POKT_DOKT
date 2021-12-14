@@ -90,13 +90,14 @@ services:
     expose:
       - 26656
       - 8081
-    command: pocket start --seeds=$POCKET_TEST_SEEDS --testnet
+    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_TEST_SEEDS --testnet
     #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY_TEST
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
     volumes:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
+      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh:rx
       - pocket-testnet:/home/app/.pocket
     networks:
       - pocket
@@ -109,7 +110,7 @@ services:
     expose:
       - 26656
       - 8081
-    command: pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    command: /home/app/pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
     #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY

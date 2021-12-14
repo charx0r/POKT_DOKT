@@ -19,7 +19,7 @@ d":"POST","path":"","headers":{}}}' http://pocket-testnet:8081/v1/client/sim
 ```
 
 #### TODO !!!! 
-
+mal alle geth clients mit erigon vergleichen
 poly_submodule? -> relativer pfad vom submodule, macht probleme wenn man docker-compose vom root des repos aufruft.
 
 POKT: 
