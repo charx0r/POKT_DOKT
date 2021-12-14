@@ -4,6 +4,7 @@ git clone https://github.com/cventastic/POKT_DOKT.git
 git submodule update --init --recursive
 git pull --recurse-submodules
 cd POKT_DOKT
+chown -R 1005:1001 bootstrap_skript
 chown -R 1005:1001 chains 
 docker-compose up -d
 ```

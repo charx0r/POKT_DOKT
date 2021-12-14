@@ -97,7 +97,7 @@ services:
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
     volumes:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
-      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh:rx
+      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-testnet:/home/app/.pocket
     networks:
       - pocket
@@ -117,7 +117,7 @@ services:
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
     volumes:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
-      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh:rx
+      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
     networks:
       - pocket
