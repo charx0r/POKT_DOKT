@@ -2,5 +2,21 @@
     {
         "id": "0001",
         "url": "http://pocket-mainnet:8081"
+    },
+    {
+        "id": "0026",
+        "url": "http://geth-goerli:8545"
+    },
+    {
+        "id": "0025",
+        "url": "http://geth-rinkeby:8545"
+    },
+    {
+        "id": "0023",
+        "url": "http://geth-ropsten:8545"
+    },
+    {
+        "id": "0021",
+        "url": "http://geth-mainnet:8545"
     }
 ]
