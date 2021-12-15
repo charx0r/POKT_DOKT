@@ -4,11 +4,27 @@ git clone https://github.com/cventastic/POKT_DOKT.git
 git submodule update --init --recursive
 git pull --recurse-submodules
 cd POKT_DOKT
-chown -R 1005:1001 bootstrap_skript
-chown -R 1005:1001 chains 
+chown -R 1005:1001 bootstrap_skript && chown -R 1005:1001 chains 
 docker-compose up -d
 ```
+this compose file needs the following env-vars for example in a .env file inside the repo root-folder:
+```
+POCKET_CORE_KEY=
+POCKET_CORE_PASSPHRASE=
+POCKET_CORE_KEY_TEST=
+POCKET_CORE_PASSPHRASE_TEST=
+POCKET_MAIN_SEEDS=
+POCKET_MAIN_GENESIS=
+POCKET_TEST_SEEDS=
+POCKET_TEST_GENESIS=
+```
+To test if relaying chains works, pokt-testnet-service and pokt-mainnet service have to be provided with the following command parameters:
+```
+command: pocket start --simulateRelay
+```
+
 # EXAMPLES
+
 POKT QUERY:
 ```
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://pocket-testnet:8081/v1/client/sim
