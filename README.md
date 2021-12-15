@@ -31,8 +31,7 @@ curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":
 ```
 GETH QUERY:
 ```
-curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","metho
-d":"POST","path":"","headers":{}}}' http://pocket-testnet:8081/v1/client/sim
+curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","method":"POST","path":"","headers":{}}}' http://pocket-testnet:8081/v1/client/sim
 ```
 
 #### TODO !!!! 
