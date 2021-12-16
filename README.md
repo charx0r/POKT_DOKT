@@ -37,6 +37,13 @@ GETH QUERY:
 curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","method":"POST","path":"","headers":{}}}' http://pocket-testnet:8081/v1/client/sim
 ```
 
+# SSL
+I you want to test SSL comment in:
+```
+# - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory" 
+```
+Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to delete it. Otherwise traefik will not issue the certificate for an existing domain.
+
 #### TODO !!!! 
 mal alle geth clients mit erigon vergleichen
 poly_submodule? -> relativer pfad vom submodule, macht probleme wenn man docker-compose vom root des repos aufruft.
