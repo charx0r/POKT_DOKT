@@ -1,9 +1,9 @@
 Tested on Ubuntu 20.04.3 LTS
 
 #### Prerequisites:
-docker
-docker-compose
-DNS A-Record pointing to your server
+docker <br />
+docker-compose <br />
+DNS A-Record pointing to your server <br />
 
 #### Usage
 ```
@@ -32,12 +32,14 @@ DOMAIN=
 MAIL=
 ```
 
-!!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are.
+!!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are. <br />
 To test if relaying chains works, pokt-testnet-service and pokt-mainnet service have to be provided with the following command parameters:
-
 ```
 command: pocket start --simulateRelay
 ``` 
+If you want to activly relay. You also have to Stake! <br />
+Testnet-Faucet: (https://faucet.pokt.network/) <br />
+How to stake: https://docs.pokt.network/home/paths/node-runner#stake-the-validator <br />
 
 # EXAMPLES
 
@@ -55,14 +57,14 @@ I you want to test SSL comment in:
 ```
 # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory" 
 ```
-Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to delete it. Otherwise traefik will not issue the certificate for an existing domain.
+Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to delete it. <br /> 
+Otherwise traefik will not issue the certificate for an existing domain. <br />
 
 #### TODO !!!! 
 mal alle geth clients mit erigon vergleichen
-poly_submodule? -> relativer pfad vom submodule, macht probleme wenn man docker-compose vom root des repos aufruft.
 
-General Monitoring
-Bootstrapping from Snapshots
+General Monitoring <br />
+Bootstrapping from Snapshots <br />
 
 AVALANCHE:
 - Archive?
