@@ -1,6 +1,34 @@
 version: '3.1'
 
 services:
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "127.0.0.1:443:443"
+      - "127.0.0.1:8080:8080"
+    networks:
+      - web
+      - pocket
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=sven@sven-holter.de"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
   geth-goerli:
     image: ethereum/client-go:latest
     expose:
@@ -119,7 +147,13 @@ services:
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
     networks:
+      - web
       - pocket
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`bsc-1.stakesquid-db.ml`)"
+      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
 
 volumes:
   geth-goerli:
@@ -132,5 +166,7 @@ volumes:
   pocket-mainnet:
 
 networks:
+  web:
+    external: true
   pocket:
     driver: bridge

@@ -17,6 +17,7 @@ POCKET_MAIN_SEEDS=
 POCKET_MAIN_GENESIS=
 POCKET_TEST_SEEDS=
 POCKET_TEST_GENESIS=
+DOMAIN=
 ```
 
 !!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are.
