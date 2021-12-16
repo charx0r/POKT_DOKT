@@ -22,7 +22,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       # TESTING
       # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=sven@sven-holter.de"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     volumes:
       - "./traefik/letsencrypt:/letsencrypt"
@@ -150,7 +150,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.myservice.loadbalancer.server.port=8081"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`bsc-1.stakesquid-db.ml`)"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
 
