@@ -1,3 +1,10 @@
+Tested on Ubuntu 20.04.3 LTS
+
+#### Prerequisites:
+docker
+docker-compose
+DNS A-Record pointing to your server
+
 #### Usage
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
@@ -6,17 +13,23 @@ git pull --recurse-submodules
 cd POKT_DOKT
 git reset --hard origin/main && git pull && chown 1005:1001 -R chains/ bootstrap_skript/ && chmod u+x bootstrap_skript/pokt_mainnet.shdocker-compose up -d
 ```
-this compose file needs the following env-vars for example in a .env file inside the repo root-folder:
+
+This compose file needs the following env-vars for example in a .env file inside the repo root-folder:
 ```
+# Private Key for Pocket-Account mainnet can be generated here (https://wallet.pokt.network/)
 POCKET_CORE_KEY=
 POCKET_CORE_PASSPHRASE=
+# Private Key for Pocket-Account testnet can be generated here (https://wallet.testnet.pokt.network/)
 POCKET_CORE_KEY_TEST=
 POCKET_CORE_PASSPHRASE_TEST=
+# POCKET SEEDS (https://docs.pokt.network/home/resources/references/seeds)
 POCKET_MAIN_SEEDS=
-POCKET_MAIN_GENESIS=
 POCKET_TEST_SEEDS=
-POCKET_TEST_GENESIS=
+# SNAPSHOT (https://github.com/pokt-network/pocket-snapshots)
+POCKET_SNAPSHOT=
+# LETSENCRYPT
 DOMAIN=
+MAIL=
 ```
 
 !!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are.
@@ -48,30 +61,8 @@ Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to
 mal alle geth clients mit erigon vergleichen
 poly_submodule? -> relativer pfad vom submodule, macht probleme wenn man docker-compose vom root des repos aufruft.
 
-POKT: 
-- Beim lesen von chain.json braucht pokt rechte auf den chains ordner: chown -R 1005:1001 chains
-- Archive?
-- Monitoring
-
-GOERLI:
-- Bootstrap Archive
-- Monitoring
-
-RINKEBY:
-- Bootstrap Archive
-- Monitoring
-
-ROPSTEN:
-- Bootstrap Archive
-- Monitoring
-
-MAINNET:
-- Bootstrap Archive
-- Monitoring
-
-ERIGON-Trace:
-- Bootstrap Archive
-- Monitoring
+General Monitoring
+Bootstrapping from Snapshots
 
 AVALANCHE:
 - Archive?
