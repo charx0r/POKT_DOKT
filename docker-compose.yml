@@ -7,10 +7,9 @@ services:
     container_name: traefik
     restart: always
     ports:
-      - "127.0.0.1:443:443"
+      - "443:443"
       - "127.0.0.1:8080:8080"
     networks:
-      - web
       - pocket
     command:
       - "--api=true"
@@ -147,10 +146,10 @@ services:
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
     networks:
-      - web
       - pocket
     labels:
       - "traefik.enable=true"
+      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`bsc-1.stakesquid-db.ml`)"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
@@ -166,7 +165,5 @@ volumes:
   pocket-mainnet:
 
 networks:
-  web:
-    external: true
   pocket:
     driver: bridge

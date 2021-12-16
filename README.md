@@ -4,8 +4,7 @@ git clone https://github.com/cventastic/POKT_DOKT.git
 git submodule update --init --recursive
 git pull --recurse-submodules
 cd POKT_DOKT
-chown -R 1005:1001 bootstrap_skript && chown -R 1005:1001 chains 
-docker-compose up -d
+git reset --hard origin/main && git pull && chown 1005:1001 -R chains/ bootstrap_skript/ && chmod u+x bootstrap_skript/pokt_mainnet.shdocker-compose up -d
 ```
 this compose file needs the following env-vars for example in a .env file inside the repo root-folder:
 ```
