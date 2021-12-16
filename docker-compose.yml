@@ -141,6 +141,7 @@ services:
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
+      - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
