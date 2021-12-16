@@ -18,10 +18,13 @@ POCKET_MAIN_GENESIS=
 POCKET_TEST_SEEDS=
 POCKET_TEST_GENESIS=
 ```
+
+!!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are.
 To test if relaying chains works, pokt-testnet-service and pokt-mainnet service have to be provided with the following command parameters:
+
 ```
 command: pocket start --simulateRelay
-```
+``` 
 
 # EXAMPLES
 
