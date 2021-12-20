@@ -215,8 +215,7 @@ services:
       - 9090
     networks:
       - $NET_MONITOR
-    network_mode:
-      - service:wireguard
+    network_mode: "service:wireguard"
     labels:
       org.label-schema.group: "monitoring"
     depends_on:
