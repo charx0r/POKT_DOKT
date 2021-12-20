@@ -219,6 +219,8 @@ services:
       - service:wireguard
     labels:
       org.label-schema.group: "monitoring"
+    depends_on:
+      - wireguard
 
   nodeexporter:
     image: prom/node-exporter:v1.2.2
