@@ -2,34 +2,35 @@ version: '3.1'
 
 services:
 
-  traefik:
-    image: traefik:latest
-    container_name: traefik
-    restart: always
-    ports:
-      - "443:443"
-      - "127.0.0.1:8080:8080"
-    networks:
-      - pocket
-    command:
-      - "--api=true"
-      - "--api.insecure=true"
-      - "--api.dashboard=true"
-      - "--log.level=DEBUG"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      # TESTING
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    volumes:
-      - "./traefik/letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    labels:
-      - "traefik.enable=true"
-      - 'traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP'
+#  Basic Auth not working. Problems with parsing var from .env
+#  traefik:
+#    image: traefik:latest
+#    container_name: traefik
+#    restart: always
+#    ports:
+#      - "443:443"
+#      - "127.0.0.1:8080:8080"
+#    networks:
+#      - pocket
+#    command:
+#      - "--api=true"
+#      - "--api.insecure=true"
+#      - "--api.dashboard=true"
+#      - "--log.level=DEBUG"
+#      - "--providers.docker=true"
+#      - "--providers.docker.exposedbydefault=false"
+#      - "--entrypoints.websecure.address=:443"
+#      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+#      # TESTING
+#      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+#      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+#      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+#    volumes:
+#      - "./traefik/letsencrypt:/letsencrypt"
+#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#    labels:
+#      - "traefik.enable=true"
+#      - 'traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP'
 
   geth-goerli:
     image: ethereum/client-go:latest
@@ -159,13 +160,13 @@ services:
       - pocket-mainnet:/home/app/.pocket
     networks:
       - pocket
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
-      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
-      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
+#      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
+#      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
+#      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
+#      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
 
 volumes:
