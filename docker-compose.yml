@@ -100,6 +100,7 @@ services:
     expose:
       - "8545"
     restart: unless-stopped
+    depends_on: erigon-trace
 
   avalanche:
     image: avaplatform/avalanchego
