@@ -156,6 +156,7 @@ services:
       - pocket
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.test-auth.basicauth.users=$AUTH_USER:$AUTH_PASS"
       - "traefik.http.services.myservice.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
