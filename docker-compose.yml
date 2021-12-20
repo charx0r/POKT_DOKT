@@ -27,6 +27,8 @@ services:
     volumes:
       - "./traefik/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    lables:
+      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_USER:$AUTH_PASS"
 
   geth-goerli:
     image: ethereum/client-go:latest
@@ -158,11 +160,11 @@ services:
       - pocket
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.test-auth.basicauth.users=$AUTH_USER:$AUTH_PASS"
       - "traefik.http.services.myservice.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
 
 volumes:
