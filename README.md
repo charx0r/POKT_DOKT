@@ -4,8 +4,10 @@ Tested on Ubuntu 20.04.3 LTS
 docker <br />
 docker-compose <br />
 DNS A-Record pointing to your server <br />
+Paste wireguard wg0.conf from wireguard-server to wireguard/
 
 #### Usage
+
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
 git submodule update --init --recursive

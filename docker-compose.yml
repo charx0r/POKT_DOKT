@@ -169,6 +169,26 @@ services:
 #      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
 
+  wireguard:
+    image: lscr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+    volumes:
+      - wireguard/config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - $SERVERPORT:$SERVERPORT/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+
+
 volumes:
   geth-goerli:
   geth-rinkeby:
