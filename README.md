@@ -4,7 +4,7 @@ Tested on Ubuntu 20.04.3 LTS
 docker <br />
 docker-compose <br />
 DNS A-Record pointing to your server <br />
-Paste wireguard wg0.conf from wireguard-server to wireguard/
+Paste wireguard wg0.conf from wireguard-server to wireguard/config/wg0.conf
 
 #### Usage
 
