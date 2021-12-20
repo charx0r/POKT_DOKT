@@ -4,7 +4,7 @@ Tested on Ubuntu 20.04.3 LTS
 docker <br />
 docker-compose <br />
 DNS A-Record pointing to your server <br />
-Paste wireguard wg0.conf from wireguard-server to wireguard/config/wg0.conf
+Wireguard-Server: Paste wireguard wg0.conf from wireguard-server to wireguard/config/wg0.conf <br />
 
 #### Usage
 
@@ -63,6 +63,7 @@ Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to
 Otherwise traefik will not issue the certificate for an existing domain. <br />
 
 #### TODO !!!! 
+alles uebr traefik aufen lassen?
 mal alle geth clients mit erigon vergleichen
 
 General Monitoring <br />

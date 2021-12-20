@@ -2,6 +2,7 @@ version: '3.1'
 
 services:
 
+### TRAEFIK
 #  Basic Auth not working. Problems with parsing var from .env
 #  traefik:
 #    image: traefik:latest
@@ -11,7 +12,7 @@ services:
 #      - "443:443"
 #      - "127.0.0.1:8080:8080"
 #    networks:
-#      - pocket
+#      - $NET_POKT
 #    command:
 #      - "--api=true"
 #      - "--api.insecure=true"
@@ -32,6 +33,7 @@ services:
 #      - "traefik.enable=true"
 #      - 'traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP'
 
+### NODES
   geth-goerli:
     image: ethereum/client-go:latest
     expose:
@@ -42,7 +44,7 @@ services:
       - geth-goerli:/.goerli
     command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3"
     networks:
-      - pocket
+      - $NET_POKT
 
   geth-rinkeby:
     image: ethereum/client-go:latest
@@ -54,7 +56,7 @@ services:
       - geth-rinkeby:/.rinkeby
     command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3"
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   geth-ropsten:
@@ -67,7 +69,7 @@ services:
       - geth-ropsten:/.ropsten
     command: "--ropsten --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .ropsten --verbosity 3"
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   geth-mainnet:
@@ -80,7 +82,7 @@ services:
       - geth-mainnet:/.mainnet
     command: "--http  --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .mainnet --verbosity 3"
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   erigon-trace:
@@ -92,7 +94,7 @@ services:
       - erigon-trace:/home/erigon/.local/share/erigon
     command: erigon --chain mainnet --metrics --metrics.addr=0.0.0.0 --metrics.port=6060 --private.api.addr=0.0.0.0:9090 --pprof --pprof.addr=0.0.0.0 --pprof.port=6061
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   rpcdaemon:
@@ -106,6 +108,8 @@ services:
     restart: unless-stopped
     depends_on:
       - "erigon-trace"
+    networks:
+      - $NET_POKT
 
   avalanche:
     image: avaplatform/avalanchego
@@ -117,7 +121,7 @@ services:
       - avalanche:/root/.avalanche
     command: "/avalanchego/build/avalanchego --http-host="
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   pocket-testnet:
@@ -137,7 +141,7 @@ services:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
       - pocket-testnet:/home/app/.pocket
     networks:
-      - pocket
+      - $NET_POKT
     restart: unless-stopped
 
   pocket-mainnet:
@@ -159,7 +163,7 @@ services:
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
     networks:
-      - pocket
+      - $NET_POKT
 #    labels:
 #      - "traefik.enable=true"
 #      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
@@ -168,6 +172,9 @@ services:
 #      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
 #      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
+
+
+### WIREGUARD
 
   wireguard:
     image: lscr.io/linuxserver/wireguard
@@ -179,15 +186,91 @@ services:
       - PUID=$PUID
       - PGID=$PGID
     volumes:
-      - .wireguard/config:/config
+      - ./wireguard/config/wg0.conf:/config/wg0.conf
       - /lib/modules:/lib/modules
     ports:
       - $SERVERPORT:$SERVERPORT/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+    networks:
+      - $NET_MONITOR
 
+### MONITORING
 
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    container_name: prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    expose:
+      - 9090
+    networks:
+      - $NET_MONITOR
+    labels:
+      org.label-schema.group: "monitoring"
+
+  nodeexporter:
+    image: prom/node-exporter:v1.2.2
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+      - 9100
+    networks:
+      - $NET_MONITOR
+    labels:
+      org.label-schema.group: "monitoring"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.42.0
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
+    restart: unless-stopped
+    expose:
+      - 8080
+    networks:
+      - $NET_MONITOR
+    labels:
+      org.label-schema.group: "monitoring"
+
+  pushgateway:
+    image: prom/pushgateway:v1.4.2
+    container_name: pushgateway
+    restart: unless-stopped
+    expose:
+      - 9091
+    networks:
+      - $NET_MONITOR
+    labels:
+      org.label-schema.group: "monitoring"
+
+### VOLUMES
 
 volumes:
   geth-goerli:
@@ -198,8 +281,12 @@ volumes:
   avalanche:
   pocket-testnet:
   pocket-mainnet:
+  prometheus_data:
+
+### NETWORKS
 
 networks:
-  pocket:
+  $NET_MONITOR:
     driver: bridge
-
+  $NET_POKT:
+    driver: bridge
