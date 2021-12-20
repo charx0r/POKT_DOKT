@@ -193,8 +193,7 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
-    networks:
-      - $NET_MONITOR
+
 
 ### MONITORING
 
@@ -216,6 +215,8 @@ services:
       - 9090
     networks:
       - $NET_MONITOR
+    network_mode:
+      - service:wireguard
     labels:
       org.label-schema.group: "monitoring"
 
