@@ -28,7 +28,8 @@ services:
       - "./traefik/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
-      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_USER:$AUTH_PASS"
+      - "traefik.enable=true"
+      - 'traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP'
 
   geth-goerli:
     image: ethereum/client-go:latest
@@ -146,8 +147,8 @@ services:
     expose:
       - 26656
       - 8081
-    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
-    #command: pocket start --simulateRelay
+    #command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
