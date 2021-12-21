@@ -89,6 +89,15 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-ropsten-stripprefix.stripprefix.prefixes=/ropsten"
+      - "traefik.http.services.geth-ropsten.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-ropsten.entrypoints=websecure"
+      - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-ropsten.middlewares=auth"
+      - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
+      - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix"
 
   geth-mainnet:
     image: ethereum/client-go:latest
@@ -102,6 +111,15 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/geth"
+      - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-mainnet.middlewares=auth"
+      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
+      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix"
 
   erigon-trace:
     image: thorax/erigon
@@ -151,6 +169,15 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.avalanche-stripprefix.stripprefix.prefixes=/erigon"
+      - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
+      - "traefik.http.routers.avalanche.entrypoints=websecure"
+      - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
+      - "traefik.http.routers.avalanche.middlewares=auth"
+      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix"
 
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
