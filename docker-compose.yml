@@ -46,14 +46,12 @@ services:
       - $NET_POKT
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.geth-goerli.basicauth.users=$AUTH_HTTP"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
       - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-goerli.middlewares=auth"
       - "traefik.http.routers.geth-goerli.rule=Host(`$HOSTIP`) && PathPrefix(`/goerli`)"
-      - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix"
+      - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix, auth"
 
   geth-rinkeby:
     image: ethereum/client-go:latest
@@ -75,7 +73,7 @@ services:
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-rinkeby.middlewares=auth"
       - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
-      - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix"
+      - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, auth"
 
   geth-ropsten:
     image: ethereum/client-go:latest
@@ -97,7 +95,7 @@ services:
       - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-ropsten.middlewares=auth"
       - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
-      - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix"
+      - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix, auth"
 
   geth-mainnet:
     image: ethereum/client-go:latest
@@ -119,7 +117,7 @@ services:
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-mainnet.middlewares=auth"
       - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
-      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix"
+      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, auth"
 
   erigon-trace:
     image: thorax/erigon
@@ -155,7 +153,7 @@ services:
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
       - "traefik.http.routers.rpcdaemon.middlewares=auth"
       - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
-      - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix"
+      - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, auth"
 
   avalanche:
     image: avaplatform/avalanchego
@@ -177,7 +175,7 @@ services:
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
       - "traefik.http.routers.avalanche.middlewares=auth"
       - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
-      - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix"
+      - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, auth"
 
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -206,7 +204,7 @@ services:
       - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-testnet.middlewares=auth"
       - "traefik.http.routers.pocket-testnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokttest`)"
-      - "traefik.http.routers.pocket-testnet.middlewares=pocket-mainnet-stripprefix"
+      - "traefik.http.routers.pocket-testnet.middlewares=pocket-mainnet-stripprefix, auth"
 
   pocket-mainnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -236,7 +234,7 @@ services:
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.middlewares=auth"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokt`)"
-      - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix"
+      - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, auth"
     restart: unless-stopped
 
 
