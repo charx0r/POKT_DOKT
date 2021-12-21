@@ -45,6 +45,16 @@ services:
     command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3"
     networks:
       - $NET_POKT
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
+      - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-goerli.entrypoints=websecure"
+      - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-goerli.middlewares=auth"
+      - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
+      - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix"
+
 
   geth-rinkeby:
     image: ethereum/client-go:latest
@@ -58,6 +68,16 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-rinkeby-stripprefix.stripprefix.prefixes=/rinkeby"
+      - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
+      - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-rinkeby.middlewares=auth"
+      - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
+      - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix"
+
 
   geth-ropsten:
     image: ethereum/client-go:latest
@@ -166,11 +186,13 @@ services:
       - $NET_POKT
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
+      - "traefik.http.middlewares.pocket-mainnet-stripprefix.stripprefix.prefixes=/pokt"
+      - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.middlewares=auth"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokt`)"
+      - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix"
     restart: unless-stopped
 
 

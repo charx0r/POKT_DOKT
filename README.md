@@ -65,6 +65,7 @@ Otherwise traefik will not issue the certificate for an existing domain. <br />
 #### TODO !!!! 
 alles uebr traefik aufen lassen?
 mal alle geth clients mit erigon vergleichen
+LOGFILES
 
 General Monitoring <br />
 Bootstrapping from Snapshots <br />
