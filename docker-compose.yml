@@ -189,8 +189,8 @@ services:
     volumes:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
       - pocket-testnet:/home/app/.pocket
-    networks:
-      - $NET_POKT
+#    networks:
+#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
