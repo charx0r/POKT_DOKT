@@ -132,7 +132,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
-      - "traefik.http.services.rpcdaemon.loadbalancer.server.port=9090"
+      - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
       - "traefik.http.routers.rpcdaemon.middlewares=auth"
