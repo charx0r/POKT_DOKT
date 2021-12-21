@@ -171,12 +171,12 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.avalanche-stripprefix.stripprefix.prefixes=/erigon"
+      - "traefik.http.middlewares.avalanche-stripprefix.stripprefix.prefixes=/avalanche"
       - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
       - "traefik.http.routers.avalanche.entrypoints=websecure"
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
       - "traefik.http.routers.avalanche.middlewares=auth"
-      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
       - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix"
 
   pocket-testnet:
@@ -198,6 +198,15 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.pocket-testnet-stripprefix.stripprefix.prefixes=/pokttest"
+      - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-testnet.middlewares=auth"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokttest`)"
+      - "traefik.http.routers.pocket-testnet.middlewares=pocket-mainnet-stripprefix"
 
   pocket-mainnet:
     image: poktnetwork/pocket-core:stagenet-latest
