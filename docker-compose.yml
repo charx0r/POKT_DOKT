@@ -52,7 +52,7 @@ services:
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.middlewares=auth"
-      - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
+      - "traefik.http.routers.geth-goerli.rule=Host(`94.130.212.199`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix"
 
   geth-rinkeby:
