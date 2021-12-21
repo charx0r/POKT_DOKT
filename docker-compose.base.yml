@@ -2,38 +2,6 @@ version: '3.1'
 
 services:
 
-### TRAEFIK
-#  Basic Auth not working. Problems with parsing var from .env
-  traefik:
-    image: traefik:latest
-    container_name: traefik
-    restart: always
-    ports:
-      - "443:443"
-      - "127.0.0.1:8080:8080"
-    networks:
-      - $NET_POKT
-    command:
-      - "--api=true"
-      - "--api.insecure=true"
-      - "--api.dashboard=true"
-      - "--log.level=DEBUG"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      # TESTING
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    volumes:
-      - "./traefik/letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
-
-
 ### WIREGUARD
 
   wireguard:
@@ -56,7 +24,7 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
-
+    
 
 ### MONITORING
 

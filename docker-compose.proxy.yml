@@ -10,10 +10,9 @@ services:
       - 80
     environment:
       - AUTH_HTTP=$AUTH_HTTP
+      - MAINNODE=$MAIN_NODE
     volumes:
       - ./haproxy/:/usr/local/etc/haproxy:ro
-    networks:
-      - $NET_POKT
     restart: unless-stopped
 
 
