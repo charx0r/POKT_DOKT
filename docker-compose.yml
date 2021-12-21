@@ -31,7 +31,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
 
 ### NODES
   geth-goerli:
@@ -47,12 +46,13 @@ services:
       - $NET_POKT
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-goerli.basicauth.users=$AUTH_HTTP"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
       - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.middlewares=auth"
-      - "traefik.http.routers.geth-goerli.rule=Host(`94.130.212.199`) && PathPrefix(`/goerli`)"
+      - "traefik.http.routers.geth-goerli.rule=Host(`$HOSTIP`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix"
 
   geth-rinkeby:
