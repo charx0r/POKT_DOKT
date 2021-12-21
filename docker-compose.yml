@@ -137,7 +137,7 @@ services:
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
       - "traefik.http.routers.rpcdaemon.middlewares=auth"
       - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
-      - "traefik.http.routers.rpcdaemon.middlewares=erigon-trace-stripprefix"
+      - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix"
 
   avalanche:
     image: avaplatform/avalanchego
