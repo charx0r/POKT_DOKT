@@ -115,15 +115,6 @@ services:
     networks:
       - $NET_POKT
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.erigon-trace-stripprefix.stripprefix.prefixes=/erigon"
-      - "traefik.http.services.erigon-trace.loadbalancer.server.port=9090"
-      - "traefik.http.routers.erigon-trace.entrypoints=websecure"
-      - "traefik.http.routers.erigon-trace.tls.certresolver=myresolver"
-      - "traefik.http.routers.erigon-trace.middlewares=auth"
-      - "traefik.http.routers.erigon-trace.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
-      - "traefik.http.routers.erigon-trace.middlewares=erigon-trace-stripprefix"
 
   rpcdaemon:
     image: thorax/erigon:latest
@@ -138,6 +129,15 @@ services:
       - "erigon-trace"
     networks:
       - $NET_POKT
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
+      - "traefik.http.services.rpcdaemon.loadbalancer.server.port=9090"
+      - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
+      - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
+      - "traefik.http.routers.rpcdaemon.middlewares=auth"
+      - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.rpcdaemon.middlewares=erigon-trace-stripprefix"
 
   avalanche:
     image: avaplatform/avalanchego
