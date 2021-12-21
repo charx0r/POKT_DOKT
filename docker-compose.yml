@@ -55,7 +55,6 @@ services:
       - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix"
 
-
   geth-rinkeby:
     image: ethereum/client-go:latest
     expose:
@@ -77,7 +76,6 @@ services:
       - "traefik.http.routers.geth-rinkeby.middlewares=auth"
       - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
       - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix"
-
 
   geth-ropsten:
     image: ethereum/client-go:latest
@@ -110,12 +108,22 @@ services:
     expose:
     - "30303"
     - "30304"
+    - "9090"
     volumes:
       - erigon-trace:/home/erigon/.local/share/erigon
     command: erigon --chain mainnet --metrics --metrics.addr=0.0.0.0 --metrics.port=6060 --private.api.addr=0.0.0.0:9090 --pprof --pprof.addr=0.0.0.0 --pprof.port=6061
     networks:
       - $NET_POKT
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.erigon-trace-stripprefix.stripprefix.prefixes=/erigon"
+      - "traefik.http.services.erigon-trace.loadbalancer.server.port=9090"
+      - "traefik.http.routers.erigon-trace.entrypoints=websecure"
+      - "traefik.http.routers.erigon-trace.tls.certresolver=myresolver"
+      - "traefik.http.routers.erigon-trace.middlewares=auth"
+      - "traefik.http.routers.erigon-trace.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.erigon-trace.middlewares=erigon-trace-stripprefix"
 
   rpcdaemon:
     image: thorax/erigon:latest
