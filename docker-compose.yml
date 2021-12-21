@@ -4,34 +4,34 @@ services:
 
 ### TRAEFIK
 #  Basic Auth not working. Problems with parsing var from .env
-#  traefik:
-#    image: traefik:latest
-#    container_name: traefik
-#    restart: always
-#    ports:
-#      - "443:443"
-#      - "127.0.0.1:8080:8080"
-#    networks:
-#      - $NET_POKT
-#    command:
-#      - "--api=true"
-#      - "--api.insecure=true"
-#      - "--api.dashboard=true"
-#      - "--log.level=DEBUG"
-#      - "--providers.docker=true"
-#      - "--providers.docker.exposedbydefault=false"
-#      - "--entrypoints.websecure.address=:443"
-#      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-#      # TESTING
-#      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-#      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
-#      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-#    volumes:
-#      - "./traefik/letsencrypt:/letsencrypt"
-#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-#    labels:
-#      - "traefik.enable=true"
-#      - 'traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP'
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    networks:
+      - $NET_POKT
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
 
 ### NODES
   geth-goerli:
@@ -164,13 +164,13 @@ services:
       - pocket-mainnet:/home/app/.pocket
     networks:
       - $NET_POKT
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
-#      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
-#      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
-#      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-#      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
+      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
 
 
@@ -188,6 +188,9 @@ services:
     volumes:
       - ./wireguard/config/wg0.conf:/config/wg0.conf
       - /lib/modules:/lib/modules
+    # Expose prometheus port
+    expose:
+      - 9090
     ports:
       - $SERVERPORT:$SERVERPORT/udp
     sysctls:
@@ -211,10 +214,6 @@ services:
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
     restart: unless-stopped
-    expose:
-      - 9090
-    networks:
-      - $NET_MONITOR
     network_mode: "service:wireguard"
     labels:
       org.label-schema.group: "monitoring"
@@ -236,8 +235,6 @@ services:
     restart: unless-stopped
     expose:
       - 9100
-    networks:
-      - $NET_MONITOR
     labels:
       org.label-schema.group: "monitoring"
 
@@ -256,8 +253,6 @@ services:
     restart: unless-stopped
     expose:
       - 8080
-    networks:
-      - $NET_MONITOR
     labels:
       org.label-schema.group: "monitoring"
 
@@ -267,8 +262,6 @@ services:
     restart: unless-stopped
     expose:
       - 9091
-    networks:
-      - $NET_MONITOR
     labels:
       org.label-schema.group: "monitoring"
 
@@ -288,7 +281,7 @@ volumes:
 ### NETWORKS
 
 networks:
-  $NET_MONITOR:
+  pocket:
     driver: bridge
-  $NET_POKT:
+  monitor-net:
     driver: bridge
