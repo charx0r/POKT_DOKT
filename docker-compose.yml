@@ -72,7 +72,7 @@ services:
       - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
+      - "traefik.http.routers.geth-rinkeby.rule=Host(`$HOSTIP`) && PathPrefix(`/rinkeby`)"
       - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, auth"
 
   geth-ropsten:
@@ -93,7 +93,7 @@ services:
       - "traefik.http.services.geth-ropsten.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-ropsten.entrypoints=websecure"
       - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
+      - "traefik.http.routers.geth-ropsten.rule=Host(`$HOSTIP`) && PathPrefix(`/ropsten`)"
       - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix, auth"
 
   geth-mainnet:
@@ -114,7 +114,7 @@ services:
       - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
+      - "traefik.http.routers.geth-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/geth`)"
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, auth"
 
   erigon-trace:
@@ -149,7 +149,7 @@ services:
       - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
-      - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.rpcdaemon.rule=Host(`$HOSTIP`) && PathPrefix(`/erigon`)"
       - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, auth"
 
   avalanche:
@@ -170,7 +170,7 @@ services:
       - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
       - "traefik.http.routers.avalanche.entrypoints=websecure"
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
-      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
+      - "traefik.http.routers.avalanche.rule=Host(`$HOSTIP`) && PathPrefix(`/avalanche`)"
       - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, auth"
 
   pocket-testnet:
@@ -198,7 +198,7 @@ services:
       - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-testnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokttest`)"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokttest`)"
       - "traefik.http.routers.pocket-testnet.middlewares=pocket-mainnet-stripprefix, auth"
 
   pocket-mainnet:
@@ -227,7 +227,7 @@ services:
       - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokt`)"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokt`)"
       - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, auth"
     restart: unless-stopped
 
