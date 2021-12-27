@@ -47,7 +47,7 @@ services:
       - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-goerli.rule=Host(`$HOSTIP`) && PathPrefix(`/goerli`)"
+      - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
 
   geth-rinkeby:
     image: ethereum/client-go:latest
@@ -65,7 +65,7 @@ services:
       - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-rinkeby.rule=Host(`$HOSTIP`) && PathPrefix(`/rinkeby`)"
+      - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
 
   geth-ropsten:
     image: ethereum/client-go:latest
@@ -83,7 +83,7 @@ services:
       - "traefik.http.services.geth-ropsten.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-ropsten.entrypoints=websecure"
       - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-ropsten.rule=Host(`$HOSTIP`) && PathPrefix(`/ropsten`)"
+      - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
 
   geth-mainnet:
     image: ethereum/client-go:latest
@@ -101,7 +101,7 @@ services:
       - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/geth`)"
+      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
 
   erigon-trace:
     image: thorax/erigon
@@ -131,7 +131,7 @@ services:
       - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
-      - "traefik.http.routers.rpcdaemon.rule=Host(`$HOSTIP`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
 
   avalanche:
     image: avaplatform/avalanchego
@@ -149,7 +149,7 @@ services:
       - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
       - "traefik.http.routers.avalanche.entrypoints=websecure"
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
-      - "traefik.http.routers.avalanche.rule=Host(`$HOSTIP`) && PathPrefix(`/avalanche`)"
+      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
 
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -174,7 +174,7 @@ services:
       - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-testnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokttest`)"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokttest`)"
 
   pocket-mainnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -200,7 +200,7 @@ services:
       - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokt`)"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokt`)"
     restart: unless-stopped
 
 
