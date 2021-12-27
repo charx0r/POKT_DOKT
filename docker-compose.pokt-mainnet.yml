@@ -26,7 +26,6 @@ services:
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
     restart: unless-stopped
 
 
