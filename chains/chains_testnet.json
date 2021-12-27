@@ -1,10 +1,18 @@
 [
     {
-        "id": "0002",
-        "url": "http://pocket-testnet:8081"
+        "id": "0020",
+        "url": "https://bsc-1.stakesquid-db.ml/goerli"
     },
     {
-        "id": "0020",
-        "url": "http://geth-goerli:8545"
+        "id": "0022",
+        "url": "https://bsc-1.stakesquid-db.ml/rinkeby"
+    },
+    {
+        "id": "0023",
+        "url": "https://bsc-1.stakesquid-db.ml/ropsten"
+    },
+    {
+        "id": "0002",
+        "url": "https://bsc-1.stakesquid-db.ml/pokttest"
     }
 ]
