@@ -10,8 +10,6 @@ Wireguard-Server: Paste wireguard wg0.conf from wireguard-server to wireguard/co
 
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
-git submodule update --init --recursive
-git pull --recurse-submodules
 cd POKT_DOKT
 git reset --hard origin/main && git pull && chown 1005:1001 -R chains/ bootstrap_skript/ && chmod u+x bootstrap_skript/pokt_mainnet.shdocker-compose up -d
 ```
@@ -63,8 +61,8 @@ Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to
 Otherwise traefik will not issue the certificate for an existing domain. <br />
 
 #### TODO !!!! 
-alles uebr traefik aufen lassen?
 mal alle geth clients mit erigon vergleichen
+LOGFILES
 
 General Monitoring <br />
 Bootstrapping from Snapshots <br />
