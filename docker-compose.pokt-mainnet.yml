@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  pocket-mainnet:
+    image: poktnetwork/pocket-core:stagenet-latest
+    ports:
+      - "127.0.0.1:8081:8081"
+      - "127.0.0.1:26656:26656"
+    expose:
+      - 26656
+      - 8081
+    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    #command: pocket start --simulateRelay
+    environment:
+      - POCKET_CORE_KEY=$POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
+      - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
+    volumes:
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
+      - pocket-mainnet:/home/app/.pocket
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.myservice.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`)"
+      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
+    restart: unless-stopped
+
+
+### VOLUMES
+
+volumes:
+  pocket-mainnet:
+
+
