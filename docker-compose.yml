@@ -29,7 +29,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
+      - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
 
 ### NODES
   geth-goerli:
@@ -48,7 +48,6 @@ services:
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.rule=Host(`$HOSTIP`) && PathPrefix(`/goerli`)"
-      - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix, auth"
 
   geth-rinkeby:
     image: ethereum/client-go:latest
@@ -67,7 +66,6 @@ services:
       - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-rinkeby.rule=Host(`$HOSTIP`) && PathPrefix(`/rinkeby`)"
-      - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, auth"
 
   geth-ropsten:
     image: ethereum/client-go:latest
@@ -86,7 +84,6 @@ services:
       - "traefik.http.routers.geth-ropsten.entrypoints=websecure"
       - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-ropsten.rule=Host(`$HOSTIP`) && PathPrefix(`/ropsten`)"
-      - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix, auth"
 
   geth-mainnet:
     image: ethereum/client-go:latest
@@ -105,7 +102,6 @@ services:
       - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/geth`)"
-      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, auth"
 
   erigon-trace:
     image: thorax/erigon
@@ -136,7 +132,6 @@ services:
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
       - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
       - "traefik.http.routers.rpcdaemon.rule=Host(`$HOSTIP`) && PathPrefix(`/erigon`)"
-      - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, auth"
 
   avalanche:
     image: avaplatform/avalanchego
@@ -155,7 +150,6 @@ services:
       - "traefik.http.routers.avalanche.entrypoints=websecure"
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
       - "traefik.http.routers.avalanche.rule=Host(`$HOSTIP`) && PathPrefix(`/avalanche`)"
-      - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, auth"
 
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -181,7 +175,6 @@ services:
       - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-testnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokttest`)"
-      - "traefik.http.routers.pocket-testnet.middlewares=pocket-mainnet-stripprefix, auth"
 
   pocket-mainnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -208,7 +201,6 @@ services:
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$HOSTIP`) && PathPrefix(`/pokt`)"
-      - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, auth"
     restart: unless-stopped
 
 
