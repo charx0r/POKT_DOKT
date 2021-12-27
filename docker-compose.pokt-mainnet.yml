@@ -20,8 +20,6 @@ services:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
-    networks:
-      - $NET_POKT
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.myservice.loadbalancer.server.port=8081"

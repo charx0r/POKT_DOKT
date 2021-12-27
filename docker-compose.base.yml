@@ -98,10 +98,3 @@ services:
 volumes:
   prometheus_data:
 
-### NETWORKS
-
-networks:
-  pocket:
-    driver: bridge
-  monitor-net:
-    driver: bridge
