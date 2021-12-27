@@ -30,4 +30,4 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
-
+      - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
