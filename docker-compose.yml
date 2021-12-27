@@ -31,7 +31,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
 
-### NODES
+  ### NODES
   geth-goerli:
     image: ethereum/client-go:latest
     expose:
@@ -44,11 +44,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix, ipwhitelist"
+
 
   geth-rinkeby:
     image: ethereum/client-go:latest
