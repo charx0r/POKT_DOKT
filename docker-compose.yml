@@ -11,8 +11,6 @@ services:
     ports:
       - "443:443"
       - "127.0.0.1:8080:8080"
-#    networks:
-#      - $NET_POKT
     command:
       - "--api=true"
       - "--api.insecure=true"
@@ -43,8 +41,6 @@ services:
     volumes:
       - geth-goerli:/.goerli
     command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3"
-#    networks:
-#      - $NET_POKT
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
@@ -63,8 +59,6 @@ services:
     volumes:
       - geth-rinkeby:/.rinkeby
     command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3"
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -84,8 +78,6 @@ services:
     volumes:
       - geth-ropsten:/.ropsten
     command: "--ropsten --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .ropsten --verbosity 3"
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -105,8 +97,6 @@ services:
     volumes:
       - geth-mainnet:/.mainnet
     command: "--http  --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .mainnet --verbosity 3"
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -126,8 +116,6 @@ services:
     volumes:
       - erigon-trace:/home/erigon/.local/share/erigon
     command: erigon --chain mainnet --metrics --metrics.addr=0.0.0.0 --metrics.port=6060 --private.api.addr=0.0.0.0:9090 --pprof --pprof.addr=0.0.0.0 --pprof.port=6061
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
 
   rpcdaemon:
@@ -141,8 +129,6 @@ services:
     restart: unless-stopped
     depends_on:
       - "erigon-trace"
-#    networks:
-#      - $NET_POKT
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
@@ -161,8 +147,6 @@ services:
     volumes:
       - avalanche:/root/.avalanche
     command: "/avalanchego/build/avalanchego --http-host="
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -189,8 +173,6 @@ services:
     volumes:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
       - pocket-testnet:/home/app/.pocket
-#    networks:
-#      - $NET_POKT
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -219,8 +201,6 @@ services:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - pocket-mainnet:/home/app/.pocket
-#    networks:
-#      - $NET_POKT
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.pocket-mainnet-stripprefix.stripprefix.prefixes=/pokt"
@@ -335,11 +315,3 @@ volumes:
   pocket-testnet:
   pocket-mainnet:
   prometheus_data:
-
-### NETWORKS
-
-#networks:
-#  pocket:
-#    driver: bridge
-#  monitor-net:
-#    driver: bridge
