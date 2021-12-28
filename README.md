@@ -11,7 +11,7 @@ Wireguard-Server: Paste wireguard wg0.conf from wireguard-server to wireguard/co
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
 cd POKT_DOKT
-./util/prepare.sh
+git reset --hard origin/main && git pull && ./util/prepare.sh
 ```
 
 This compose file needs the following env-vars for example in a .env file inside the repo root-folder:
