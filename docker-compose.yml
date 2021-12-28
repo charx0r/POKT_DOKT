@@ -161,7 +161,7 @@ services:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8082:8081"
-      - "127.0.0.1:26657:26656"
+      - "26657:26656"
     expose:
       - 26656
       - 8081
@@ -187,7 +187,7 @@ services:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8081:8081"
-      - "127.0.0.1:26656:26656"
+      - "26656:26656"
     expose:
       - 26656
       - 8081
