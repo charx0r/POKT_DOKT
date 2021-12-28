@@ -11,7 +11,7 @@ Wireguard-Server: Paste wireguard wg0.conf from wireguard-server to wireguard/co
 ```
 git clone https://github.com/cventastic/POKT_DOKT.git
 cd POKT_DOKT
-git reset --hard origin/main && git pull && chown 1005:1001 -R chains/ bootstrap_skript/ && chmod u+x bootstrap_skript/pokt_mainnet.shdocker-compose up -d
+./util/prepare.sh
 ```
 
 This compose file needs the following env-vars for example in a .env file inside the repo root-folder:
@@ -30,6 +30,13 @@ POCKET_SNAPSHOT=""
 # LETSENCRYPT
 DOMAIN=
 MAIL=
+SERVERPORT=
+PUID=
+PGID=
+# IP WHITELIST FOR TRAFFIC
+WHITELIST=
+# ENV VARS fuer prepare Skript
+export DOMAIN
 ```
 
 !!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are. <br />
