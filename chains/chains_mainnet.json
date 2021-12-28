@@ -1,22 +1,22 @@
 [
     {
         "id": "0001",
-        "url": "https://bsc-1.stakesquid-db.ml/pokt"
+        "url": "https://${DOMAIN}/pokt"
     },
     {
         "id": "0026",
-        "url": "https://bsc-1.stakesquid-db.ml/goerli"
+        "url": "https://${DOMAIN}/goerli"
     },
     {
         "id": "0025",
-        "url": "https://bsc-1.stakesquid-db.ml/rinkeby"
+        "url": "https://${DOMAIN}/rinkeby"
     },
     {
         "id": "0023",
-        "url": "https://bsc-1.stakesquid-db.ml/ropsten"
+        "url": "https://${DOMAIN}/ropsten"
     },
     {
         "id": "0021",
-        "url": "https://bsc-1.stakesquid-db.ml/geth"
+        "url": "https://${DOMAIN}/geth"
     }
 ]
