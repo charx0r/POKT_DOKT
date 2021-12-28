@@ -1,22 +1,22 @@
 [
     {
         "id": "0001",
-        "url": "http://pocket-mainnet:8081"
+        "url": "https://bsc-1.stakesquid-db.ml/pokt"
     },
     {
         "id": "0026",
-        "url": "http://geth-goerli:8545"
+        "url": "https://bsc-1.stakesquid-db.ml/goerli"
     },
     {
         "id": "0025",
-        "url": "http://geth-rinkeby:8545"
+        "url": "https://bsc-1.stakesquid-db.ml/rinkeby"
     },
     {
         "id": "0023",
-        "url": "http://geth-ropsten:8545"
+        "url": "https://bsc-1.stakesquid-db.ml/ropsten"
     },
     {
         "id": "0021",
-        "url": "http://geth-mainnet:8545"
+        "url": "https://bsc-1.stakesquid-db.ml/geth"
     }
 ]
