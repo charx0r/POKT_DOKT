@@ -2,6 +2,8 @@
 
 source .env
 
+chown -R root:root chains bootstrap_skript
+
 originalfile="chains/chains_mainnet.json"
 tmpfile=$(mktemp)
 cp --attributes-only --preserve $originalfile $tmpfile

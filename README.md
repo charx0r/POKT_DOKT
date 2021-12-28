@@ -78,7 +78,6 @@ Otherwise traefik will not issue the certificate for an existing domain. <br />
 #### TODO !!!! 
 mal alle geth clients mit erigon vergleichen <br />
 LOGFILES <br />
-
 General Monitoring <br />
 Bootstrapping from Snapshots <br />
 
