@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source .env
 envsubst < chains/chains_mainnet.json > chains/chains_mainnet.json
