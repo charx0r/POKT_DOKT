@@ -76,8 +76,8 @@ Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to
 Otherwise traefik will not issue the certificate for an existing domain. <br />
 
 #### TODO !!!! 
-mal alle geth clients mit erigon vergleichen
-LOGFILES
+mal alle geth clients mit erigon vergleichen <br />
+LOGFILES <br />
 
 General Monitoring <br />
 Bootstrapping from Snapshots <br />

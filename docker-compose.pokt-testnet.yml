@@ -1,6 +1,32 @@
 version: '3.1'
 
 services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
 
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -10,8 +36,9 @@ services:
     expose:
       - 26656
       - 8081
-    #command:  pocket start --seeds=$POCKET_TEST_SEEDS --testnet
-    command: pocket start --simulateRelay
+      - 443
+    command:  pocket start --seeds=$POCKET_TEST_SEEDS --testnet
+    #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY_TEST
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
@@ -19,8 +46,13 @@ services:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
       - pocket-testnet:/home/app/.pocket
     restart: unless-stopped
-
-### VOLUMES
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.pocket-testnet.loadbalancer.server.port=443"
+      - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$TEST_DOMAIN`) && PathPrefix(`/pokttest`)"
+      - "traefik.http.routers.pocket-testnet.middlewares=ipwhitelist"
 
 volumes:
   pocket-testnet:
