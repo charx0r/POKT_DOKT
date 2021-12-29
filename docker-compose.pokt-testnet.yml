@@ -94,10 +94,11 @@ services:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8082:8081"
-      - "26657:26656"
+      - "26656:26656"
     expose:
       - 26656
       - 8081
+      - 8083
     command:  pocket start --seeds=$POCKET_TEST_SEEDS --testnet
     #command: pocket start --simulateRelay
     environment:
