@@ -27,7 +27,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
 
   ### NODES
   geth-goerli:
@@ -41,6 +40,7 @@ services:
     command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
       - "traefik.http.services.geth-goerli.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-goerli.entrypoints=websecure"
@@ -60,6 +60,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.geth-rinkeby-stripprefix.stripprefix.prefixes=/rinkeby"
       - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
@@ -79,6 +80,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.geth-ropsten-stripprefix.stripprefix.prefixes=/ropsten"
       - "traefik.http.services.geth-ropsten.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-ropsten.entrypoints=websecure"
@@ -99,6 +101,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/geth"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
@@ -129,6 +132,7 @@ services:
       - "erigon-trace"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
       - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
@@ -148,6 +152,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.avalanche-stripprefix.stripprefix.prefixes=/avalanche"
       - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
       - "traefik.http.routers.avalanche.entrypoints=websecure"
@@ -174,6 +179,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.pocket-testnet-stripprefix.stripprefix.prefixes=/pokttest"
       - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
@@ -201,6 +207,7 @@ services:
       - pocket-mainnet:/home/app/.pocket
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.pocket-mainnet-stripprefix.stripprefix.prefixes=/pokt"
       - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
