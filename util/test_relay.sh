@@ -12,4 +12,5 @@ for i in ${!chain_arr[@]}; do
 done
 
 POKT="0002"
-curl -X POST --data '{"relay_network_id":"$POKT","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
+curl -X POST --data '{"relay_network_id":"'$POKT'","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
+echo \n
