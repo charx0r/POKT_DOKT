@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 # Only geth right now
