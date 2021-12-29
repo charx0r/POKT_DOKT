@@ -18,7 +18,7 @@ services:
       - ALLOWEDIPS=$ALLOWEDIPS
       - INTERNAL_SUBNET=$INTERNAL_SUBNET
     volumes:
-      - ./config:/config
+      - ./wireguard/config:/config
       - /lib/modules:/lib/modules
     ports:
       - $SERVERPORT:$SERVERPORT/udp
