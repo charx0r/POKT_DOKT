@@ -1,7 +1,7 @@
 {
   "id": null,
-  "title": "Docker Host",
-  "description": "Docker host metrics",
+  "title": "rpc-node Host metrics",
+  "description": "Host metrics",
   "tags": [
     "system"
   ],
