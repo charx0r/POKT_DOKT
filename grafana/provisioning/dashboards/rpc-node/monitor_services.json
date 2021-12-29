@@ -1,6 +1,7 @@
 {
   "id": null,
-  "title": "Monitor Services",
+  "title": "rpc-node monitoring docker",
+  "description": "rpc-node monitoring container",
   "tags": [
     "prometheus"
   ],
