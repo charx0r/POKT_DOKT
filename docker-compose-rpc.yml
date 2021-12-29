@@ -214,7 +214,6 @@ services:
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/pokt`)"
       - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, ipwhitelist"
-
     restart: unless-stopped
 
 
