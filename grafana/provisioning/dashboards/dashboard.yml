@@ -1,7 +1,7 @@
 apiVersion: 1
 
 providers:
-  - name: 'Prometheus'
+  - name: 'rpc-node'
     orgId: 1
     folder: 'rpc-node'
     type: file
@@ -9,5 +9,5 @@ providers:
     editable: true
     allowUiUpdates: true
     options:
-      path: /etc/grafana/provisioning/dashboards
+      path: /etc/grafana/provisioning/dashboards/rpc-node
       foldersFromFilesStructure: true
