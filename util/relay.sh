@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Only geth right now
 declare -A chain_arr
 chain_arr[goerli]="0026"
