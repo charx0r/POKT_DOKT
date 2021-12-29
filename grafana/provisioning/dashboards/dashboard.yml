@@ -1,7 +1,7 @@
 apiVersion: 1
 
 providers:
-  - name: 'rpc-node'
+  - name: 'Prometheus'
     orgId: 1
     folder: 'rpc-node'
     type: file
