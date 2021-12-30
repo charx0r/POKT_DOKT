@@ -27,6 +27,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.auth.basicauth.users=$AUTH_HTTP"
 
 ### WIREGUARD
   wireguard:
@@ -143,6 +144,7 @@ services:
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$RELAYDOMAIN`)"
+      - "traefik.http.routers.pocket-mainnet.middlewares=auth"
 
 ### VOLUMES
 volumes:
