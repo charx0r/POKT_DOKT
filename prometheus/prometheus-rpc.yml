@@ -38,21 +38,33 @@ scrape_configs:
     scrape_interval: 10s
     static_configs:
       - targets: ['geth-mainnet:6060']
+      relabel_configs:
+        - source_labels: [__address__]
+        target_label: geth-mainnet
 
   - job_name: 'geth-goerli'
     scrape_interval: 10s
     static_configs:
       - targets: ['geth-goerli:6060']
+      relabel_configs:
+        - source_labels: [__address__]
+        target_label: geth-goerli
 
   - job_name: 'geth-rinkeby'
     scrape_interval: 10s
     static_configs:
       - targets: ['geth-rinkeby:6060']
+      relabel_configs:
+        - source_labels: [__address__]
+        target_label: geth-rinkeby
 
   - job_name: 'geth-ropsten'
     scrape_interval: 10s
     static_configs:
       - targets: ['geth-ropsten:6060']
+      relabel_configs:
+        - source_labels: [__address__]
+        target_label: geth-ropsten
 
 alerting:
   alertmanagers:
