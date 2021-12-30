@@ -47,7 +47,7 @@ services:
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix, ipwhitelist"
-      - org.label-schema.group: "geth-goerli"
+      org.label-schema.group: "geth-goerli"
 
 
   geth-rinkeby:
@@ -69,7 +69,7 @@ services:
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
       - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, ipwhitelist"
-      - org.label-schema.group: "geth-rinkeby"
+      org.label-schema.group: "geth-rinkeby"
 
 
   geth-ropsten:
@@ -91,7 +91,7 @@ services:
       - "traefik.http.routers.geth-ropsten.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
       - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix, ipwhitelist"
-      - org.label-schema.group: "geth-ropsten"
+      org.label-schema.group: "geth-ropsten"
 
 
   geth-mainnet:
@@ -114,7 +114,7 @@ services:
       - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
-      - org.label-schema.group: "geth-mainnet"
+      org.label-schema.group: "geth-mainnet"
 
   erigon-trace:
     image: thorax/erigon
