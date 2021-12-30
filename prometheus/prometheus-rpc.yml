@@ -38,12 +38,12 @@ scrape_configs:
     scrape_interval: 10s
     static_configs:
       - targets: ['geth-mainnet:6060']
-      relabel_configs:
-        - source_labels: [__address__]
-          action: replace
-          regex: (.*)
-          replacement: $1
-          target_label: geth-mainnet
+        relabel_configs:
+          - source_labels: [__address__]
+            action: replace
+            regex: (.*)
+            replacement: $1
+            target_label: geth-mainnet
 
   - job_name: 'geth-goerli'
     scrape_interval: 10s
