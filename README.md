@@ -80,6 +80,8 @@ mal alle geth clients mit erigon vergleichen <br />
 LOGFILES <br />
 General Monitoring <br />
 Bootstrapping from Snapshots <br />
+Link-Timezone into containers.
+
 
 AVALANCHE:
 - Archive?
