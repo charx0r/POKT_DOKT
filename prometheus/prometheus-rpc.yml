@@ -43,7 +43,7 @@ scrape_configs:
         action: replace
         regex: (.*)
         replacement: $1
-        target_label: gethmainnet
+        target_label: geth_mainnet
 
   - job_name: 'geth-goerli'
     scrape_interval: 10s
@@ -54,7 +54,7 @@ scrape_configs:
         action: replace
         regex: (.*)
         replacement: $1
-        target_label: goerli
+        target_label: geth_goerli
 
   - job_name: 'geth-rinkeby'
     scrape_interval: 10s
@@ -65,7 +65,7 @@ scrape_configs:
         action: replace
         regex: (.*)
         replacement: $1
-        target_label: rinkeby
+        target_label: geth_rinkeby
 
   - job_name: 'geth-ropsten'
     scrape_interval: 10s
@@ -76,7 +76,7 @@ scrape_configs:
         action: replace
         regex: (.*)
         replacement: $1
-        target_label: ropsten
+        target_label: geth_ropsten
 
 alerting:
   alertmanagers:
