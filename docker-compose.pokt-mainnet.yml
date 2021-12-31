@@ -140,7 +140,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
+      - "traefik.http.services.pocket-mainnet.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.pocket-mainnet.rule=Host(`$RELAYDOMAIN`)"
