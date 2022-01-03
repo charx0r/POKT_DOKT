@@ -50,14 +50,14 @@ How to stake: https://docs.pokt.network/home/paths/node-runner#stake-the-validat
 
 # EXAMPLES
 
-POKT QUERY:
+POKT QUERY im simulate-relay mode:
 ```
 Pockt-Testnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8082/v1/client/sim
 Pocket-Mainnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
 ```
-GETH QUERY (von gewhitelisteten servern e.g pokt-test):
+GETH QUERY (von gewhitelisteten servern e.g pokt-test) im simulate-relay mode:
 ```
 Pocket-Testnet:
 curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","method":"POST","path":"","headers":{}}}' http://127.0.0.1:8082/v1/client/sim
@@ -66,6 +66,13 @@ Pocket-Mainnet:
 curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","method":"POST","path":"","headers":{}}}' http://127.0.0.1:8081/v1/client/sim
 curl -v -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}","method":"POST","path":"","headers":{}}}' http://127.0.0.1:8081/v1/client/sim
 ```
+
+POKT QUERY im staked mode:
+```
+curl -X POST  https://pokt-de-1.stakesquid-pokt.gq/v1/query/nodes
+```
+
+
 
 # SSL
 I you want to test SSL comment in:
