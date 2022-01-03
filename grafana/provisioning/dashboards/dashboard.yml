@@ -1,31 +1,9 @@
 apiVersion: 1
 
 providers:
-  - name: 'rpc-node'
+  - name: 'basic'
     orgId: 1
-    folder: 'rpc-node'
-    type: file
-    disableDeletion: false
-    editable: true
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards
-      foldersFromFilesStructure: true
-
-  - name: 'pokt-test'
-    orgId: 1
-    folder: 'pokt-test'
-    type: file
-    disableDeletion: false
-    editable: true
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards
-      foldersFromFilesStructure: true
-
-  - name: 'pokt-de-1'
-    orgId: 1
-    folder: 'pokt-de-1'
+    folder: 'basic'
     type: file
     disableDeletion: false
     editable: true
