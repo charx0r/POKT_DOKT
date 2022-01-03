@@ -109,6 +109,32 @@ services:
       - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
+  harmony-mainnet:
+    image: harmonyone/harmony:latest
+    expose:
+      - "9500"
+      - "9000"
+      - "6000"
+      - "30303"
+    volumes:
+      - ./harmony/harmony_db_0:/harmony/harmony_db_0
+      - ./harmony/log:/harmony/log
+      - ./harmony/keyfiles:/harmony/.hmy
+    environment:
+      - NODE_BLSKEY=${HARMONY_NODE_BLSKEY}
+      - NODE_BLSPASS=${HARMONY_NODE_BLSPASS}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/harmony"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.services.harmony-mainnet.loadbalancer.server.port=9500"
+      - "traefik.http.routers.harmony-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.harmony-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.harmony-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/harmony`)"
+      - "traefik.http.routers.harmony-mainnet.middlewares=harmony-mainnet-stripprefix, ipwhitelist"
+
+      
   erigon-trace:
     image: thorax/erigon
     expose:
