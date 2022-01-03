@@ -1,6 +1,6 @@
 {
   "id": null,
-  "title": "rpc-node Host metrics",
+  "title": "Host metrics",
   "description": "Host metrics",
   "tags": [
     "system"
@@ -25,7 +25,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 1,
           "editable": true,
           "error": false,
@@ -106,7 +106,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "format": "percent",
@@ -187,7 +187,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "format": "none",
@@ -267,7 +267,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "format": "bytes",
@@ -348,7 +348,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "format": "bytes",
@@ -428,7 +428,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "format": "bytes",
@@ -511,7 +511,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -595,7 +595,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -688,7 +688,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -780,7 +780,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -869,7 +869,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -995,7 +995,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1114,7 +1114,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1211,7 +1211,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1309,7 +1309,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "rpc-node",
+          "datasource": "$DS_PROMETHEUS",
           "decimals": 2,
           "editable": true,
           "error": false,
