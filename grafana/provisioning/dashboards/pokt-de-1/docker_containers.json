@@ -1,6 +1,6 @@
 {
   "id": null,
-  "title": "pokt-de-1 chain containers",
+  "title": "pokt-de-1-node chain containers",
   "description": "chain container metrics",
   "tags": [
     "docker"
