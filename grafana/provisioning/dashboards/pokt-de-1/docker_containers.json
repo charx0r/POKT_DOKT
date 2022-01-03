@@ -25,6 +25,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -107,6 +108,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": "pokt-de-1",
           "editable": true,
           "error": false,
           "format": "none",
@@ -186,6 +188,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": "pokt-de-1",
           "editable": true,
           "error": false,
           "format": "percent",
@@ -267,6 +270,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -349,6 +353,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": "pokt-de-1",
           "decimals": null,
           "editable": true,
           "error": false,
@@ -431,6 +436,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -514,6 +520,7 @@
         {
           "aliasColors": {},
           "bars": true,
+          "datasource": "pokt-de-1",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -593,6 +600,7 @@
         {
           "aliasColors": {},
           "bars": true,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -677,6 +685,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -796,6 +805,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -884,6 +894,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -964,6 +975,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1052,6 +1064,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -1132,6 +1145,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "datasource": "pokt-de-1",
           "decimals": 2,
           "editable": true,
           "error": false,
