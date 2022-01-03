@@ -110,7 +110,7 @@ services:
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
   harmony-mainnet:
-    image: harmonyone/harmony:latest
+    build: ./harmony/build
     expose:
       - "9500"
       - "9000"
