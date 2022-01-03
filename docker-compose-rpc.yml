@@ -109,6 +109,27 @@ services:
       - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
+  xdai:
+    image: nethermind/nethermind:latest
+    expose:
+      - "8545"
+      - "30303"
+    volumes:
+      - xdai:/nethermind_db/xdai
+      - ./xdai/xdai.cfg:/xdai.cfg
+      - ./xdai/xdai.json:/xdai.json
+    command: "--config /xdai.cfg"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.xdai-stripprefix.stripprefix.prefixes=/xdai"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.services.xdai.loadbalancer.server.port=8545"
+      - "traefik.http.routers.xdai.entrypoints=websecure"
+      - "traefik.http.routers.xdai.tls.certresolver=myresolver"
+      - "traefik.http.routers.xdai.rule=Host(`$DOMAIN`) && PathPrefix(`/xdai`)"
+      - "traefik.http.routers.xdai.middlewares=xdai-stripprefix, ipwhitelist"
+    
   harmony-mainnet:
     build: ./harmony/build
     sysctls:
@@ -346,6 +367,7 @@ services:
 ### VOLUMES
 
 volumes:
+  xdai:
   geth-goerli:
   geth-rinkeby:
   geth-ropsten:
