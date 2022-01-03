@@ -109,6 +109,24 @@ services:
       - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
       - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
+  fuse:
+    image: fusenet/node:latest
+    expose:
+      - "8545"
+    volumes:
+      - fuse:/data
+    command: "--role node --parity-args --no-warp"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.fuse-stripprefix.stripprefix.prefixes=/fuse"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.services.fuse.loadbalancer.server.port=8545"
+      - "traefik.http.routers.fuse.entrypoints=websecure"
+      - "traefik.http.routers.fuse.tls.certresolver=myresolver"
+      - "traefik.http.routers.fuse.rule=Host(`$DOMAIN`) && PathPrefix(`/fuse`)"
+      - "traefik.http.routers.fuse.middlewares=fuse-stripprefix, ipwhitelist"
+    
   xdai:
     image: nethermind/nethermind:latest
     expose:
@@ -370,6 +388,7 @@ services:
 ### VOLUMES
 
 volumes:
+  fuse:
   xdai:
   geth-goerli:
   geth-rinkeby:
