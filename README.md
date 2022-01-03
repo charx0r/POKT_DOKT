@@ -92,3 +92,8 @@ Link-Timezone into containers.
 AVALANCHE:
 - Archive?
 - Monitoring https://docs.avax.network/build/tools/dashboards/README
+
+
+### Notes
+Telegram get group/channel ids the bot is in:
+```curl -X POST https://api.telegram.org/bot$TELEGRAM_API_TOKEN/getUpdates```
