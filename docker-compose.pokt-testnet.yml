@@ -2,6 +2,58 @@ version: '3.1'
 
 services:
 
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    ports:
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+
+  pocket-testnet:
+    image: poktnetwork/pocket-core:stagenet-latest
+    ports:
+      - "127.0.0.1:8081:8081"
+      - "26656:26656"
+    expose:
+      - 26656
+      - 8081
+      - 8083
+    command:  pocket start --seeds=$POCKET_TEST_SEEDS --testnet
+    #command: pocket start --simulateRelay
+    environment:
+      - POCKET_CORE_KEY=$POCKET_CORE_KEY_TEST
+      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
+    volumes:
+      - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
+      - pocket-testnet:/home/app/.pocket
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
+      - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$TEST_DOMAIN`)"
+
+### MONITORING
 ### WIREGUARD
   wireguard:
     image: lscr.io/linuxserver/wireguard
@@ -24,7 +76,6 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
 
-### MONITORING
   prometheus:
     image: prom/prometheus:v2.30.3
     container_name: prometheus
@@ -89,25 +140,6 @@ services:
       - 9091
     labels:
       org.label-schema.group: "monitoring"
-
-  pocket-testnet:
-    image: poktnetwork/pocket-core:stagenet-latest
-    ports:
-      - "127.0.0.1:8081:8081"
-      - "26656:26656"
-    expose:
-      - 26656
-      - 8081
-      - 8083
-    command:  pocket start --seeds=$POCKET_TEST_SEEDS --testnet
-    #command: pocket start --simulateRelay
-    environment:
-      - POCKET_CORE_KEY=$POCKET_CORE_KEY_TEST
-      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE_TEST
-    volumes:
-      - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
-      - pocket-testnet:/home/app/.pocket
-    restart: unless-stopped
 
 ### VOLUMES
 volumes:

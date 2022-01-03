@@ -35,8 +35,6 @@ PUID=
 PGID=
 # IP WHITELIST FOR TRAFFIC
 WHITELIST=
-# ENV VARS fuer prepare Skript
-export DOMAIN
 ```
 
 !!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are. <br />
@@ -57,6 +55,7 @@ curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":
 Pocket-Mainnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
 ```
+
 GETH QUERY (von gewhitelisteten servern e.g pokt-test) im simulate-relay mode:
 ```
 Pocket-Testnet:
@@ -69,7 +68,8 @@ curl -v -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc
 
 POKT QUERY im staked mode:
 ```
-curl -X POST  https://pokt-de-1.stakesquid-pokt.gq/v1/query/nodes
+curl -X POST  https://$RELAYDOMAIN/v1/query/nodes
+curl -X POST  https://$RLEAYDOMAIN/v1/query/state
 ```
 
 
