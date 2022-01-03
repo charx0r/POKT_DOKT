@@ -113,7 +113,10 @@ services:
     image: nethermind/nethermind:latest
     expose:
       - "8545"
-      - "30303"
+      - "40444"
+    ports:
+      - "40444:40444"
+      - "40444:40444/udp"
     volumes:
       - xdai:/nethermind_db/xdai
       - ./xdai/xdai.cfg:/xdai.cfg
