@@ -19,3 +19,11 @@ datasources:
     isDefault: false
     editable: true
 
+  - name: pokt-de-1
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://10.13.13.6:9090
+    basicAuth: false
+    isDefault: false
+    editable: true
