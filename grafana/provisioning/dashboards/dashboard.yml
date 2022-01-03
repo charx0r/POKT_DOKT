@@ -31,5 +31,5 @@ providers:
     editable: true
     allowUiUpdates: true
     options:
-      path: /etc/grafana/provisioning/dashboards/pokt-de-1
+      path: /etc/grafana/provisioning/dashboards
       foldersFromFilesStructure: true
