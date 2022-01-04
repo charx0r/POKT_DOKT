@@ -48,7 +48,7 @@ How to stake: https://docs.pokt.network/home/paths/node-runner#stake-the-validat
 
 # EXAMPLES
 
-POKT QUERY im simulate-relay mode:
+POKT QUERY for simulate-relay mode:
 ```
 Pockt-Testnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8082/v1/client/sim
@@ -56,7 +56,7 @@ Pocket-Mainnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
 ```
 
-GETH QUERY (von gewhitelisteten servern e.g pokt-test) im simulate-relay mode:
+GETH QUERY (from whitelisted servers e.g pokt-test) for simulate-relay mode:
 ```
 Pocket-Testnet:
 curl -X POST --data '{"relay_network_id":"0020","payload":{"data":"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x1a8c807a6E4F624fCab01FEBf76a541d31B8345A\", \"latest\"],\"id\":1}","method":"POST","path":"","headers":{}}}' http://127.0.0.1:8082/v1/client/sim
@@ -72,7 +72,10 @@ curl -X POST  https://$RELAYDOMAIN/v1/query/nodes
 curl -X POST  https://$RLEAYDOMAIN/v1/query/state
 ```
 
-
+STANDARD GETH QUERY (from whitelistet server)
+```
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' https://$RPCNODE/goerli
+```
 
 # SSL
 I you want to test SSL comment in:
@@ -95,5 +98,6 @@ AVALANCHE:
 
 
 ### Notes
-Telegram get group/channel ids the bot is in:
+#### Monitoring
+Telegram get group ids the bot is in:
 ```curl -X POST https://api.telegram.org/bot$TELEGRAM_API_TOKEN/getUpdates```

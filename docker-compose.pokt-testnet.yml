@@ -51,7 +51,7 @@ services:
       - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-testnet.entrypoints=websecure"
       - "traefik.http.routers.pocket-testnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-testnet.rule=Host(`$TEST_DOMAIN`)"
+      - "traefik.http.routers.pocket-testnet.rule=Host(`$RELAYDOMAIN`)"
 
 ### MONITORING
 ### WIREGUARD
