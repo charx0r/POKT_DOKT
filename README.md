@@ -77,6 +77,11 @@ STANDARD GETH QUERY (from whitelistet server)
 curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' https://$RPCNODE/goerli
 ```
 
+HARMONY QUERY
+```
+curl --location --request POST 'https://$RPCNODE/' --header 'Content-Type: application/json' --data-raw '{"jsonrpc": "2.0", "method": "hmy_latestHeader", "params": [], "id": 1}'
+```
+
 # SSL
 I you want to test SSL comment in:
 ```
