@@ -93,7 +93,6 @@ Otherwise traefik will not issue the certificate for an existing domain. <br />
 #### TODO !!!! 
 General Monitoring <br />
 LOGFILES <br />
-Open-File Limits? <br />
 Bootstrapping from Snapshots <br />
 Link-Timezone into containers.
 
