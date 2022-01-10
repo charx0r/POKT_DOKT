@@ -27,3 +27,12 @@ datasources:
     basicAuth: false
     isDefault: false
     editable: true
+
+  - name: pokt-fr-1
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://10.13.13.10:9090
+    basicAuth: false
+    isDefault: false
+    editable: true
