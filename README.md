@@ -53,7 +53,7 @@ POKT QUERY for simulate-relay mode:
 Pockt-Testnet:
 curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8082/v1/client/sim
 Pocket-Mainnet:
-curl -X POST --data '{"relay_network_id":"0002","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
+curl -X POST --data '{"relay_network_id":"0001","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
 ```
 
 GETH QUERY (from whitelisted servers e.g pokt-test) for simulate-relay mode:
@@ -105,3 +105,8 @@ AVALANCHE:
 #### Monitoring
 Telegram get group ids the bot is in:
 ```curl -X POST https://api.telegram.org/bot$TELEGRAM_API_TOKEN/getUpdates```
+
+### neue NODE
+Wallet
+rpc-timeout
+whitelist
