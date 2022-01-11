@@ -15,3 +15,7 @@ done
 POKT="0001"
 curl -X POST --data '{"relay_network_id":"'$POKT'","payload":{"data":"{}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
 echo \n
+
+HARMONY="0040"
+curl -X POST --data '{"relay_network_id":"'$HARMONY'","payload":{"data":"{"jsonrpc": "2.0", "method": "hmy_latestHeader", "params": [], "id": 1}","method":"POST","path":"v1/query/height","headers":{}}}' http://localhost:8081/v1/client/sim
+echo \n
