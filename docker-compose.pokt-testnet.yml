@@ -2,13 +2,6 @@ version: '3.1'
 
 services:
 
-  x-logging:
-    &default-logging
-    options:
-      max-file: '1'
-      compress: 'false'
-    driver: local
-
   traefik:
     image: traefik:latest
     container_name: traefik
@@ -53,7 +46,6 @@ services:
       - ./chains/chains_testnet.json:/home/app/.pocket/config/chains.json
       - pocket-testnet:/home/app/.pocket
     restart: unless-stopped
-    logging: *default-logging
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.pocket-testnet.loadbalancer.server.port=8081"
