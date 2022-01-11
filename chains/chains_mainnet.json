@@ -18,5 +18,9 @@
     {
         "id": "0021",
         "url": "https://${DOMAIN}/geth"
+    },
+    {
+        "id": "0040",
+        "url": "https://${DOMAIN}/harmony"
     }
 ]
