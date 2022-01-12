@@ -8,11 +8,9 @@ chain_arr[ropsten]="0023"
 chain_arr[mainnet]="0021"
 chain_arr[harmony]="040"
 chain_arr[xdai]="0027"
-# ARCHIVAL TRACE
-chain_arr[erigon]="0028"
-chain_arr[erigon]="0021"
-# ARCHIVE
-chain_arr[erigon]="0022"
+chain_arr[erigon-archival-trace]="0028"
+chain_arr[erigon-mainnet]="0021"
+chain_arr[erigon-archive]="0022"
 
 for i in ${!chain_arr[@]}; do
   echo curl ${i} ${chain_arr[${i}]}
