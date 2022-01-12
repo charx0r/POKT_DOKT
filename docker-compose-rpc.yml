@@ -302,6 +302,7 @@ services:
   fusenetstat:
     image: fusenet/netstat:1.0.0
     command: "--instance-name 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --role node --parity-version 2.0.1 --fuseapp-version 1.0.0 --netstats-version 1.0.0"
+    network_mode: "service:fusenet"
     restart: unless-stopped
       
   # wants udp and tcp port bindings on 30303
