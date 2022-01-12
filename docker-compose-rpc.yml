@@ -165,7 +165,6 @@ services:
       - "traefik.http.routers.harmony-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.harmony-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/harmony`)"
       - "traefik.http.routers.harmony-mainnet.middlewares=harmony-mainnet-stripprefix, ipwhitelist"
-
       
   erigon-trace:
     image: thorax/erigon
@@ -180,7 +179,7 @@ services:
 
   rpcdaemon:
     image: thorax/erigon:latest
-    command: rpcdaemon --datadir=/home/erigon/.local/share/erigon --private.api.addr=erigon-trace:9090 --txpool.api.addr=erigon-trace:9090 --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.api=eth,debug,net,trace --ws
+    command: rpcdaemon --datadir=/home/erigon/.local/share/erigon --private.api.addr=erigon-trace:9090 --txpool.api.addr=erigon-trace:9090 --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.api=eth,erigon,web3,net,debug,trace,txpool --ws
     pid: service:erigon-trace # Use erigon's PID namespace. It's required to open Erigon's DB from another process (RPCDaemon local-mode)
     volumes:
       - erigon-trace:/home/erigon/.local/share/erigon
