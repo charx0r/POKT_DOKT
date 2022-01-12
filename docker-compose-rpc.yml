@@ -206,7 +206,7 @@ services:
       - "8546"
       - "30303"
     volumes:
-      - avalanche:/root/.avalanche
+      - avalanche:/root/.avalanchego
     command: "/avalanchego/build/avalanchego --http-host="
     restart: unless-stopped
     labels:
