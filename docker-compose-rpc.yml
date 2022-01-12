@@ -199,6 +199,7 @@ services:
       - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
       - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, ipwhitelist"
 
+  # wants tcp and udp port bindings on 30303
   avalanche:
     image: avaplatform/avalanchego
     expose:
@@ -219,6 +220,7 @@ services:
       - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
       - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, ipwhitelist"
 
+  # wants tcp and udp port bindings on 30303
   binance-smart-chain:
     image: dysnix/bsc
     expose:
@@ -240,7 +242,6 @@ services:
       - "traefik.http.routers.bsc.rule=Host(`$DOMAIN`) && PathPrefix(`/bsc`)"
       - "traefik.http.routers.bsc.middlewares=avalanche-stripprefix, ipwhitelist"
 
-      
   pocket-testnet:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
@@ -297,6 +298,43 @@ services:
       - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, ipwhitelist"
     restart: unless-stopped
 
+  
+  fusenetstat:
+    image: fusenet/netstat:1.0.0
+    command: "--instance-name 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --role node --parity-version 2.0.1 --fuseapp-version 1.0.0 --netstats-version 1.0.0"
+    restart: unless-stopped
+      
+  # wants udp and tcp port bindings on 30303
+  fusenet:
+    image: fusenet/node:2.0.1
+    expose:
+      - "8545"
+      - "8546"
+      - "30303"
+    environment:
+      - HOME=/home/parity
+      - PARITY_HOME_DIR=/home/parity/.local/share/io.parity.ethereum
+      - PARITY_CONFIG_FILE_CHAIN=/home/parity/.local/share/io.parity.ethereum/spec.json
+      - PARITY_CONFIG_FILE_BOOTNODES=/home/parity/.local/share/io.parity.ethereum/bootnodes.txt
+      - PARITY_CONFIG_FILE_TEMPLATE=/home/parity/.local/share/io.parity.ethereum/config_template.toml
+      - PARITY_DATA_DIR=/home/parity/.local/share/io.parity.ethereum/chains
+      - PARITY_BIN=/usr/local/bin/parity
+      - PARITY_WRAPPER_SCRIPT=/home/parity/parity_wrapper.sh
+    volumes:
+      - /root/fusenet/database:/data
+      - /root/fusenet/config:/config/custom
+    command: "--role node --parity-args --no-warp --node-key 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --jsonrpc-threads 1 --jsonrpc-server-threads 4"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.fuse-stripprefix.stripprefix.prefixes=/fuse"
+      - "traefik.http.services.fuse.loadbalancer.server.port=8545"
+      - "traefik.http.routers.fuse.entrypoints=websecure"
+      - "traefik.http.routers.fuse.tls.certresolver=myresolver"
+      - "traefik.http.routers.fuse.rule=Host(`$DOMAIN`) && PathPrefix(`/fuse`)"
+      - "traefik.http.routers.fuse.middlewares=fuse-stripprefix, ipwhitelist"
+      
 
 ### WIREGUARD
 
