@@ -129,8 +129,8 @@ services:
     command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
     #command: pocket start --simulateRelay
     environment:
-      - POCKET_CORE_KEY=$POKT-FR-1-POCKET_CORE_KEY
-      - POCKET_CORE_PASSPHRASE=$POKT-FR-1-POCKET_CORE_PASSPHRASE
+      - POCKET_CORE_KEY=$POKT_FR_1_POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POKT_FR_1_POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
@@ -156,8 +156,8 @@ services:
     command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
     #command: pocket start --simulateRelay
     environment:
-      - POCKET_CORE_KEY=$POKT-FR-2-POCKET_CORE_KEY
-      - POCKET_CORE_PASSPHRASE=$POKT-FR-2-POCKET_CORE_PASSPHRASE
+      - POCKET_CORE_KEY=$POKT_FR_2_POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POKT_FR_2_POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
