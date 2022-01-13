@@ -77,10 +77,3 @@ scrape_configs:
         regex: (.*)
         replacement: $1
         target_label: geth_ropsten
-
-alerting:
-  alertmanagers:
-  - scheme: http
-    static_configs:
-    - targets:
-      - 'alertmanager:9093'
