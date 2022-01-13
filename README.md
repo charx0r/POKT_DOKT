@@ -14,29 +14,7 @@ cd POKT_DOKT
 git reset --hard origin/main && git pull && ./util/prepare.sh
 ```
 
-This compose file needs the following env-vars for example in a .env file inside the repo root-folder:
-```
-# Private Key for Pocket-Account mainnet can be generated here (https://wallet.pokt.network/)
-POCKET_CORE_KEY=
-POCKET_CORE_PASSPHRASE=
-# Private Key for Pocket-Account testnet can be generated here (https://wallet.testnet.pokt.network/)
-POCKET_CORE_KEY_TEST=
-POCKET_CORE_PASSPHRASE_TEST=
-# POCKET SEEDS (https://docs.pokt.network/home/resources/references/seeds)
-POCKET_MAIN_SEEDS=
-POCKET_TEST_SEEDS=
-# SNAPSHOT (https://github.com/pokt-network/pocket-snapshots)
-POCKET_SNAPSHOT=""
-# LETSENCRYPT
-DOMAIN=
-MAIL=
-SERVERPORT=
-PUID=
-PGID=
-# IP WHITELIST FOR TRAFFIC
-WHITELIST=
-```
-
+!!! This compose file needs env-vars, for example in a .env file inside the repo root-folder !!!
 !!! I added a simple test-script (util/test_relay.sh) to see if the (geth)chains are synced. Dont try to relay before they are. <br />
 To test if relaying chains works, pokt-testnet-service and pokt-mainnet service have to be provided with the following command parameters:
 ```
@@ -91,18 +69,14 @@ Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to
 Otherwise traefik will not issue the certificate for an existing domain. <br />
 
 #### TODO !!!! 
-HARMONY SYNC CHECK <br />
 General Monitoring <br />
 LOGFILES <br />
 Bootstrapping from Snapshots <br />
 Link-Timezone into containers.
 
-
-
 AVALANCHE:
 - Archive?
 - Monitoring https://docs.avax.network/build/tools/dashboards/README
-
 
 ### Notes
 #### Monitoring

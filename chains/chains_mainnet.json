@@ -17,7 +17,23 @@
     },
     {
         "id": "0021",
-        "url": "https://${DOMAIN}/geth"
+        "url": "https://${DOMAIN}/erigon"
+    },
+    {
+        "id": "0022",
+        "url": "https://${DOMAIN}/erigon"
+    },
+    {
+        "id": "0028",
+        "url": "https://${DOMAIN}/erigon"
+    },
+    {
+        "id": "0027",
+        "url": "https://${DOMAIN}/xdai"
+    },
+    {
+        "id": "0005",
+        "url": "https://${DOMAIN}/fuse"
     },
     {
         "id": "0040",

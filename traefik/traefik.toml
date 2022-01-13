@@ -28,7 +28,15 @@
   [entryPoints.websecure]
     address = ":443"
  
- 
+ [entryPoints]
+  [entryPoints.metrics]
+    address = ":8082"
+
+# Monitoring
+[metrics]
+  [metrics.prometheus]
+    entryPoint = "metrics"
+
 ################################################################
 # Traefik logs configuration
 ################################################################
