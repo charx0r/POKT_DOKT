@@ -198,13 +198,14 @@ services:
       - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
       - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, ipwhitelist"
 
-  # wants tcp and udp port bindings on 30303
   avalanche:
     image: avaplatform/avalanchego
     expose:
-      - "8545"
-      - "8546"
-      - "30303"
+      - "9650"
+      - "9651"
+    ports:
+      - "9651:9651/tcp"
+      - "9651:9651/udp"
     volumes:
       - avalanche:/root/.avalanchego
     command: "/avalanchego/build/avalanchego --http-host="
@@ -303,6 +304,8 @@ services:
     command: "--instance-name 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --role node --parity-version 2.0.1 --fuseapp-version 1.0.0 --netstats-version 1.0.0"
     network_mode: "service:fusenet"
     restart: unless-stopped
+    depends_on:
+      - fusenet
       
   # wants udp and tcp port bindings on 30303
   fusenet:
