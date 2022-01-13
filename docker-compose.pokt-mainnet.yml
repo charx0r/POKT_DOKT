@@ -117,7 +117,7 @@ services:
       org.label-schema.group: "monitoring"
 
 ### POKT
-  pocket-mainnet:
+  pocket-fr-1:
     image: poktnetwork/pocket-core:stagenet-latest
     ports:
       - "127.0.0.1:8081:8081"
@@ -129,8 +129,8 @@ services:
     command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
     #command: pocket start --simulateRelay
     environment:
-      - POCKET_CORE_KEY=$POCKET_CORE_KEY
-      - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
+      - POCKET_CORE_KEY=$POKT_FR_1_POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POKT_FR_1_POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
@@ -139,13 +139,40 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.pocket-mainnet.loadbalancer.server.port=8081"
-      - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"
-      - "traefik.http.routers.pocket-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-mainnet.rule=Host(`$RELAYDOMAIN`)"
+      - "traefik.http.services.pocket-fr-1.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-fr-1.entrypoints=websecure"
+      - "traefik.http.routers.pocket-fr-1.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-fr-1.rule=Host(`$POKT-FR-1-DOMAIN`)"
+
+  pocket-fr-2:
+    image: poktnetwork/pocket-core:stagenet-latest
+    ports:
+      - "127.0.0.1:8082:8081"
+      - "26657:26656"
+    expose:
+      - 26656
+      - 8081
+      - 8083
+    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    #command: pocket start --simulateRelay
+    environment:
+      - POCKET_CORE_KEY=$POKT_FR_2_POCKET_CORE_KEY
+      - POCKET_CORE_PASSPHRASE=$POKT_FR_2_POCKET_CORE_PASSPHRASE
+      - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
+    volumes:
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
+      - pocket-fr-2:/home/app/.pocket
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.pocket-fr-2.loadbalancer.server.port=8081"
+      - "traefik.http.routers.pocket-fr-2.entrypoints=websecure"
+      - "traefik.http.routers.pocket-fr-2.tls.certresolver=myresolver"
+      - "traefik.http.routers.pocket-fr-2.rule=Host(`$POKT-FR-2-DOMAIN`)"
 
 ### VOLUMES
 volumes:
   pocket-mainnet:
+  pocket-fr-2:
   prometheus_data:
-
