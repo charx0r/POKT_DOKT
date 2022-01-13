@@ -203,7 +203,7 @@ services:
     expose:
       - "9650"
       - "9651"
-    port:
+    ports:
       - "9651:9651/tcp"
       - "9651:9651/udp"
     volumes:
