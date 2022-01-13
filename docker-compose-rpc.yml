@@ -199,7 +199,7 @@ services:
       - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, ipwhitelist"
 
   avalanche:
-    image: avaplatform/avalanchego:1.7.3
+    image: avaplatform/avalanchego
     expose:
       - "9650"
       - "9651"
