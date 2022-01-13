@@ -1,8 +1,7 @@
 #!/bin/bash
 
 source .env
-
-export DOMAIN=$DOMAIN
+export DOMAIN=$RPC_DOMAIN
 
 chown -R root:root chains bootstrap_skript
 
