@@ -34,15 +34,14 @@ scrape_configs:
     static_configs:
       - targets: ['pushgateway:9091']
 
-  - job_name: 'pocket'
+  - job_name: 'pocket-fr-1'
     scrape_interval: 10s
     honor_labels: true
     static_configs:
-      - targets: ['pocket-mainnet:8083']
+      - targets: ['pocket-fr-1:8083']
 
-alerting:
-  alertmanagers:
-  - scheme: http
+  - job_name: 'pocket-fr-2'
+    scrape_interval: 10s
+    honor_labels: true
     static_configs:
-    - targets:
-      - 'alertmanager:9093'
+      - targets: ['pocket-fr-1:8083']
