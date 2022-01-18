@@ -68,9 +68,7 @@ I you want to test SSL comment in:
 Check if there is a file here /traefic/letsencrypt/acme.json if yes, you have to delete it. <br /> 
 Otherwise traefik will not issue the certificate for an existing domain. <br />
 
-#### TODO !!!! 
-General Monitoring <br />
-LOGFILES <br />
+#### TODO !!!!
 Bootstrapping from Snapshots <br />
 Link-Timezone into containers.
 

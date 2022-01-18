@@ -14,7 +14,7 @@ services:
       - SERVERURL=$SERVERURL
       - SERVERPORT=$SERVERPORT
       - PEERS=$PEERS
-      - PEERDNS=auto
+      - PEERDNS=none
       - ALLOWEDIPS=$ALLOWEDIPS
       - INTERNAL_SUBNET=$INTERNAL_SUBNET
     volumes:
