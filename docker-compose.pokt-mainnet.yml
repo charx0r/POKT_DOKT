@@ -146,7 +146,7 @@ services:
       - "traefik.http.services.pocket-fr-1.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-fr-1.entrypoints=websecure"
       - "traefik.http.routers.pocket-fr-1.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-fr-1.rule=Host(`$POKT_FR_1_DOMAIN`)"
+      - "traefik.http.routers.pocket-fr-1.rule=Host(`$POKT_FR_1_DOMAIN`) && Path(`/v1`, `/v1/client/{dispatch|relay|challenge|sim}`)"
 
   pocket-fr-2:
     image: poktnetwork/pocket-core:stagenet-latest
@@ -173,7 +173,7 @@ services:
       - "traefik.http.services.pocket-fr-2.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-fr-2.entrypoints=websecure"
       - "traefik.http.routers.pocket-fr-2.tls.certresolver=myresolver"
-      - "traefik.http.routers.pocket-fr-2.rule=Host(`$POKT_FR_2_DOMAIN`)"
+      - "traefik.http.routers.pocket-fr-2.rule=Host(`$POKT_FR_2_DOMAIN`) && Path(`/v1`, `/v1/client/{dispatch|relay|challenge|sim}`)"
 
 ### VOLUMES
 volumes:
