@@ -286,8 +286,9 @@ services:
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
-      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - ./pokt/config.json:/home/app/.pocket/config/config.json
       - pocket-mainnet:/home/app/.pocket
     labels:
       - "traefik.enable=true"
@@ -300,7 +301,6 @@ services:
       - "traefik.http.routers.pocket-mainnet.middlewares=pocket-mainnet-stripprefix, ipwhitelist"
     restart: unless-stopped
 
-  
   fusenetstat:
     image: fusenet/netstat:1.0.0
     command: "--instance-name 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --role node --parity-version 2.0.1 --fuseapp-version 1.0.0 --netstats-version 1.0.0"
