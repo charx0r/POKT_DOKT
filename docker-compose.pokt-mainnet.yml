@@ -138,8 +138,9 @@ services:
       - POCKET_CORE_PASSPHRASE=$POKT_FR_1_POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
-      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - ./pokt/config.json:/home/app/.pocket/config/config.json
       - pocket-mainnet:/home/app/.pocket
     restart: unless-stopped
     labels:
@@ -166,8 +167,9 @@ services:
       - POCKET_CORE_PASSPHRASE=$POKT_FR_2_POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
-      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
+      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
+      - ./pokt/config.json:/home/app/.pocket/config/config.json
       - pocket-fr-2:/home/app/.pocket
     restart: unless-stopped
     labels:
