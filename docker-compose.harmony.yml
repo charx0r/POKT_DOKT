@@ -22,8 +22,9 @@ services:
       - "6000"
       - "30303"
     volumes:
-      - harmony:/harmony/
+      - harmony_data:/harmony/
       - ./harmony/keyfiles:/.hmy/blskeys
+      - ./harmony/log:/harmony/log
     restart: unless-stopped
 
 ### WIREGUARD
@@ -111,6 +112,6 @@ services:
 ### VOLUMES
 
 volumes:
-  harmony:
+  harmony_data:
   prometheus_data:
 
