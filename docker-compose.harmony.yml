@@ -1,0 +1,116 @@
+version: '3.1'
+
+services:
+  harmony-mainnet:
+    build: ./harmony/build
+    command: /binary --log.dir /harmony/log --run.shard 0 --bootnodes /ip4/100.26.90.187/tcp/9874/p2p/Qmdfjtk6hPoyrH1zVD9PEH4zfWLo38dP2mDvvKXfh3tnEv,/ip4/54.213.43.194/tcp/9874/p2p/QmZJJx6AdaoEkGLrYG4JeLCKeCKDjnFz2wfHNHxAqFSGA9,/ip4/13.113.101.219/tcp/12019/p2p/QmQayinFSgMMw5cSpDUiD9pQ2WeP6WNmGxpZ6ou3mdVFJX,/ip4/99.81.170.167/tcp/12019/p2p/QmRVbTpEYup8dSaURZfF6ByrMTSKa4UyUzJhSjahFzRqNj --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony
+    sysctls:
+      net.core.somaxconn: 1024
+      # net.core.netdev_max_backlog: 65536
+      net.ipv4.tcp_tw_reuse: 1
+      net.ipv4.tcp_rmem: 4096 65536 16777216
+      net.ipv4.tcp_wmem: 4096 65536 16777216
+      # net.ipv4.tcp_mem: 65536 131072 262144
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    expose:
+      - "9500"
+      - "9000"
+      - "6000"
+      - "30303"
+    volumes:
+      - harmony:/harmony/
+      - ./harmony/keyfiles:/.hmy/blskeys
+    restart: unless-stopped
+
+### WIREGUARD
+
+  wireguard:
+    image: lscr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./wireguard/config/wg0.conf:/config/wg0.conf
+      - /lib/modules:/lib/modules
+    # Expose prometheus port
+    expose:
+      - 9090
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+
+### MONITORING
+
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus-rpc.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    network_mode: "service:wireguard"
+    labels:
+      org.label-schema.group: "monitoring"
+    depends_on:
+      - wireguard
+
+  nodeexporter:
+    image: prom/node-exporter:v1.2.2
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+      - 9100
+    labels:
+      org.label-schema.group: "monitoring"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.42.0
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
+    restart: unless-stopped
+    expose:
+      - 8080
+    labels:
+      org.label-schema.group: "monitoring"
+
+### VOLUMES
+
+volumes:
+  harmony:
+  prometheus_data:
+
