@@ -128,6 +128,7 @@ services:
       - "26656:26656"
     expose:
       - 26656
+      - 26660
       - 8081
       - 8083
     command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
@@ -155,6 +156,7 @@ services:
       - "26657:26656"
     expose:
       - 26656
+      - 26660
       - 8081
       - 8083
     command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
