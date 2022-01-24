@@ -279,7 +279,7 @@ services:
     expose:
       - 26656
       - 8081
-    command: bash -c "/home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet"
+    command: sh -c "/home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet"
     #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
