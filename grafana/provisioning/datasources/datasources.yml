@@ -10,29 +10,20 @@ datasources:
     isDefault: false
     editable: true
 
-  - name: pokt-test
-    type: prometheus
-    access: proxy
-    orgId: 1
-    url: http://10.13.13.8:9090
-    basicAuth: false
-    isDefault: false
-    editable: true
-
-  - name: pokt-de-1
-    type: prometheus
-    access: proxy
-    orgId: 1
-    url: http://10.13.13.6:9090
-    basicAuth: false
-    isDefault: false
-    editable: true
-
   - name: pokt-fr-1
     type: prometheus
     access: proxy
     orgId: 1
     url: http://10.13.13.10:9090
+    basicAuth: false
+    isDefault: false
+    editable: true
+
+  - name: harmony-fr-1
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://10.13.13.11:9090
     basicAuth: false
     isDefault: false
     editable: true
