@@ -14,7 +14,7 @@ EOF
 if [ ! -f /setupdone ]
 then
   # https://docs.harmony.one/home/network/validators/node-setup/syncing-db#2.-configuring-rclone
-  rclone --config=rclone.conf -P -L sync release:pub.harmony.one/mainnet.min/harmony_db_0 /harmony/harmony_db_0 --multi-thread-streams 4 --transfers=8
-  rclone --config+rclone.conf -P -L sync release:pub.harmony.one/mainnet.min/harmony_db_1 /harmony/harmony_db_1 --multi-thread-streams 4 --transfers=8
+  #rclone --config=rclone.conf -P -L sync release:pub.harmony.one/mainnet.min/harmony_db_0 /harmony/harmony_db_0 --multi-thread-streams 4 --transfers=8
+  rclone --config=rclone.conf -P -L sync release:pub.harmony.one/mainnet.min/harmony_db_1 /harmony/harmony_db_1 --multi-thread-streams 4 --transfers=8
   touch /setupdone
 fi
