@@ -3,7 +3,7 @@ version: '3.1'
 services:
   harmony-mainnet:
     build: ./harmony/build
-    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony"
+    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony --prometheus true"
     sysctls:
       net.core.somaxconn: 1024
       # net.core.netdev_max_backlog: 65536
@@ -58,7 +58,7 @@ services:
     image: prom/prometheus:v2.30.3
     container_name: prometheus
     volumes:
-      - ./prometheus/prometheus-rpc.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus-harmony.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
