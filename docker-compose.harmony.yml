@@ -3,7 +3,7 @@ version: '3.1'
 services:
   harmony-mainnet:
     build: ./harmony/build
-    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony --prometheus true"
+    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony"
     sysctls:
       net.core.somaxconn: 1024
       # net.core.netdev_max_backlog: 65536
