@@ -131,7 +131,7 @@ services:
       - 26660
       - 8081
       - 8083
-    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    command: bash -c "/home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet"
     #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POKT_FR_1_POCKET_CORE_KEY
@@ -160,7 +160,7 @@ services:
       - 26660
       - 8081
       - 8083
-    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
+    command: bash -c "/home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet"
     #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POKT_FR_2_POCKET_CORE_KEY

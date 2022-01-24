@@ -1,5 +1,7 @@
 #!/bin/bash
 
+RUN mkdir -p /harmony/harmony_db_0 /harmony/harmony_db_1 /harmony/harmony_db_2 /harmony/harmony_db_3 /harmony/log /harmony/.hmy
+
 cat<<-EOF > rclone.conf
 [release]
 type = s3
