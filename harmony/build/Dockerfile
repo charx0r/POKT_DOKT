@@ -4,7 +4,7 @@ RUN apk add --no-cache bash libstdc++ gmp-dev libc6-compat bind-tools jq curl rc
 
 EXPOSE 9000/tcp 9500/tcp 9800/tcp 6000/tcp
 
-RUN mkdir /harmony/harmony_db_0 /harmony/harmony_db_1 /harmony/harmony_db_2 /harmony/harmony_db_3 /harmony/log /harmony/.hmy
+VOLUME ["/harmony/harmony_db_0","/harmony/harmony_db_1","/harmony/harmony_db_2","/harmony/harmony_db_3","/harmony/log","/harmony/.hmy"]
 
 RUN curl -LO https://harmony.one/binary && chmod +x binary
 
