@@ -68,6 +68,7 @@ AVALANCHE:
 #### Monitoring
 Telegram get group ids the bot is in:
 ```curl -X POST https://api.telegram.org/bot$TELEGRAM_API_TOKEN/getUpdates```
+There has to be an event in the channel for the bot to get updates
 
 ### neue NODE
 .env
