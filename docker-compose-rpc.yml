@@ -90,27 +90,6 @@ services:
       - "traefik.http.routers.geth-ropsten.rule=Host(`$DOMAIN`) && PathPrefix(`/ropsten`)"
       - "traefik.http.routers.geth-ropsten.middlewares=geth-ropsten-stripprefix, ipwhitelist"
 
-  geth-mainnet:
-    image: ethereum/client-go:latest
-    expose:
-      - "8545"
-      - "8546"
-      - "6060"
-      - "30303"
-    volumes:
-      - geth-mainnet:/.mainnet
-    command: "--http  --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .mainnet --verbosity 3 --metrics.addr 0.0.0.0 --pprof.addr 0.0.0.0"
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/geth"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
-      - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
-      - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
-      - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/geth`)"
-      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
-
   xdai:
     image: nethermind/nethermind:latest
     expose:
