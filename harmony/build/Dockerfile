@@ -7,6 +7,6 @@ EXPOSE 9000/tcp 9500/tcp 9800/tcp 6000/tcp
 RUN mkdir -p /harmony/harmony_db_0 /harmony/harmony_db_1 /harmony/harmony_db_2 /harmony/harmony_db_3 /harmony/log /harmony/.hmy
 
 RUN curl -LO https://harmony.one/binary && chmod +x binary
-RUN curl -LO https://harmony.one/hmycli && mv hmycli && chmod +x hmycli
+RUN curl -LO https://harmony.one/hmycli && chmod +x hmycli
 
 CMD /binary --log.dir /harmony/log --run explorer --run.shard 0 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony

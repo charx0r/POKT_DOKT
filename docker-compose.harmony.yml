@@ -20,7 +20,9 @@ services:
       - "9500"
       - "9000"
       - "6000"
-      - "30303"
+    ports:
+      - 9000:9000/tcp
+      - 6000:6000/tcp
     volumes:
       - harmony_data:/harmony/
       - ./harmony/keyfiles:/.hmy/blskeys
