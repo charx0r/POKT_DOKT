@@ -141,7 +141,7 @@ services:
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./pokt/config.json:/home/app/.pocket/config/config.json
-      - pocket-mainnet:/home/app/.pocket
+      - pocket-lt-1:/home/app/.pocket
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -199,7 +199,7 @@ services:
       - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
       - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
       - ./pokt/config.json:/home/app/.pocket/config/config.json
-      - pocket-lt-2:/home/app/.pocket
+      - pocket-lt-3:/home/app/.pocket
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
