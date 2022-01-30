@@ -399,7 +399,6 @@ volumes:
   geth-goerli:
   geth-rinkeby:
   geth-ropsten:
-  geth-mainnet:
   erigon-trace:
   avalanche:
   pocket-testnet:
