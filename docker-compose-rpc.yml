@@ -135,7 +135,7 @@ services:
       - "6000"
       - "30303"
     volumes:
-      - harmony_data:/harmony/
+      - harmony:/harmony/
       - ./harmony/log:/harmony/log
       - ./bootstrap_skript/harmony.sh:/harmony.sh
     restart: unless-stopped
@@ -417,6 +417,7 @@ services:
 
 volumes:
   xdai:
+  harmony:
   geth-goerli:
   geth-rinkeby:
   geth-ropsten:
