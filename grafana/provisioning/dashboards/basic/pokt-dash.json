@@ -21,15 +21,15 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 17,
-  "iteration": 1643017659794,
+  "id": 11,
+  "iteration": 1643534201255,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -105,7 +105,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0001{instance=~\"$instance\"}[1m]) * 100",
@@ -117,7 +117,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0005{instance=~\"$instance\"}[1m]) * 100",
@@ -129,7 +129,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0021{instance=~\"$instance\"}[1m]) * 100",
@@ -141,7 +141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0022{instance=~\"$instance\"}[1m]) * 100",
@@ -153,7 +153,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0023{instance=~\"$instance\"}[1m]) * 100",
@@ -165,7 +165,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0025{instance=~\"$instance\"}[1m]) * 100",
@@ -177,7 +177,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0026{instance=~\"$instance\"}[1m]) * 100",
@@ -189,7 +189,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0027{instance=~\"$instance\"}[1m]) * 100",
@@ -201,7 +201,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0028{instance=~\"$instance\"}[1m]) * 100",
@@ -213,7 +213,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_relay_count_for_0040{instance=~\"$instance\"}[1m]) * 100",
@@ -229,7 +229,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -305,7 +305,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "increase(pocketcore_service_err_count_for_all{instance=~\"$instance\"}[1m])",
@@ -321,7 +321,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -398,7 +398,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_0001_bucket{instance=~\"$instance\"}[1m])))",
@@ -409,7 +409,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_0021_bucket{instance=~\"$instance\"}[1m])))",
@@ -421,7 +421,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_0026_bucket{instance=~\"$instance\"}[1m])))",
@@ -433,7 +433,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_0028_bucket{instance=~\"$instance\"}[1m])))",
@@ -445,7 +445,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_0040_bucket{instance=~\"$instance\"}[1m])))",
@@ -461,7 +461,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -537,7 +537,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0001{instance=~\"$instance\"}[1m]) * 100",
@@ -549,7 +549,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0005{instance=~\"$instance\"}[1m]) * 100",
@@ -561,7 +561,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0021{instance=~\"$instance\"}[1m]) * 100",
@@ -573,7 +573,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0022{instance=~\"$instance\"}[1m]) * 100",
@@ -585,7 +585,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0023{instance=~\"$instance\"}[1m]) * 100",
@@ -597,7 +597,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0025{instance=~\"$instance\"}[1m]) * 100",
@@ -609,7 +609,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0026{instance=~\"$instance\"}[1m]) * 100",
@@ -621,7 +621,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0027{instance=~\"$instance\"}[1m]) * 100",
@@ -633,7 +633,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0028{instance=~\"$instance\"}[1m]) * 100",
@@ -645,7 +645,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(pocketcore_service_sessions_count_for_0040{instance=~\"$instance\"}[1m]) * 100",
@@ -661,7 +661,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -708,7 +708,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_consensus_height{instance=~\"$instance\"}",
@@ -723,7 +723,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -770,7 +770,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_consensus_latest_block_height{instance=~\"$instance\"}",
@@ -785,7 +785,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "description": "Block Processing Time sum / count",
       "fieldConfig": {
@@ -842,7 +842,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_state_block_processing_time_sum{instance=~\"$instance\"} / tendermint_state_block_processing_time_count{instance=~\"$instance\"}",
@@ -857,7 +857,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -931,7 +931,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_consensus_block_interval_seconds{instance=~\"$instance\"}",
@@ -946,7 +946,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -996,7 +996,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_p2p_peers{instance=~\"$instance\"}",
@@ -1011,7 +1011,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "description": "Total voting power of all validators",
       "fieldConfig": {
@@ -1056,7 +1056,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_consensus_validators_power{instance=~\"$instance\"}",
@@ -1071,7 +1071,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "description": "consensus_missing_validators",
       "fieldConfig": {
@@ -1116,7 +1116,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "tendermint_consensus_missing_validators_power{instance=~\"$instance\"}",
@@ -1131,7 +1131,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "description": "",
       "fieldConfig": {
@@ -1210,7 +1210,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(tendermint_mempool_tx_size_bytes_bucket{instance=~\"$instance\"}[1m])))",
@@ -1225,7 +1225,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "fieldConfig": {
         "defaults": {
@@ -1300,7 +1300,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.9, sum by (le) (rate(pocketcore_service_avg_relay_time_for_all_bucket{instance=~\"$instance\"}[1m])))",
@@ -1315,7 +1315,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P00A23F4F516FCA75"
+        "uid": "$DS_PROMETHEUS"
       },
       "description": "number of bytes per channel sent to a given peer",
       "fieldConfig": {
@@ -1389,7 +1389,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P00A23F4F516FCA75"
+            "uid": "$DS_PROMETHEUS"
           },
           "exemplar": true,
           "expr": "rate(tendermint_p2p_peer_send_bytes_total{instance=~\"$instance\"}[1m])",
@@ -1410,7 +1410,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "pocket-fr-1:8083",
           "value": "pocket-fr-1:8083"
         },
@@ -1435,6 +1435,24 @@
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "harmony-fr-1",
+          "value": "harmony-fr-1"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "datasource",
+        "multi": false,
+        "name": "DS_PROMETHEUS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
@@ -1446,6 +1464,6 @@
   "timezone": "",
   "title": "Pokt Dashboard",
   "uid": "PPoaArJnz",
-  "version": 38,
+  "version": 2,
   "weekStart": ""
 }
