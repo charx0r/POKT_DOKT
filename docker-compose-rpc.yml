@@ -358,8 +358,6 @@ services:
     volumes:
       - ./prometheus/prometheus-rpc.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
-    networks:
-      - chains
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
