@@ -14,10 +14,10 @@ RPT=$4
 # RPT=8545
 
 # Run curl with appropriate options
-curl -s -X POST -u ${AUTH_HTTP} -H "Content-Type: application/json" -m 2 -d '{"jsonrpc":"2.0","method":"eth_syncing","params": [],"id":1}' http://$RIP:$RPT/geth 2>/dev/null | jq '.result' -r | grep -q false
+curl -s -X POST -H "Content-Type: application/json" -m 2 -d '{"jsonrpc":"2.0","method":"eth_syncing","params": [],"id":1}' http://$RIP:$RPT/geth 2>/dev/null | jq '.result' -r | grep -q false
 exit1=$?
 
-peers=$(curl -s -X POST -u ${AUTH_HTTP} -H "Content-Type: application/json" -m 2 -d '{"jsonrpc":"2.0","method":"net_peerCount","params": [],"id":1}' http://$RIP:$RPT/geth 2>/dev/null | jq '.result' -r)
+peers=$(curl -s -X POST -H "Content-Type: application/json" -m 2 -d '{"jsonrpc":"2.0","method":"net_peerCount","params": [],"id":1}' http://$RIP:$RPT/geth 2>/dev/null | jq '.result' -r)
 
 # If any of the above tests failed, then exit 1.
 if [[ "$exit1" -ne 0 ]]; then exit 1; fi
