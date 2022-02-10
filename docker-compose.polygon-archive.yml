@@ -1,35 +1,121 @@
 version: '3.1'
 
 services:
-  harmony-mainnet:
-    build: ./harmony/build
-    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony"
-    sysctls:
-      net.core.somaxconn: 1024
-      # net.core.netdev_max_backlog: 65536
-      net.ipv4.tcp_tw_reuse: 1
-      net.ipv4.tcp_rmem: 4096 65536 16777216
-      net.ipv4.tcp_wmem: 4096 65536 16777216
-      # net.ipv4.tcp_mem: 65536 131072 262144
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 65535
-        hard: 65535
-    expose:
-      - "9500"
-      - "9000"
-      - "6000"
-      - "9900"
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
     ports:
-      - 9000:9000/tcp
-      - 6000:6000/tcp
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--entryPoints.metrics.address=:8082"
+      - "--metrics.prometheus.entryPoint=metrics"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     volumes:
-      - harmony_data:/harmony/
-      - ./harmony/keyfiles:/.hmy/blskeys
-      - ./harmony/log:/harmony/log
-      - ./bootstrap_skript/harmony.sh:/harmony.sh
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - chains
+    labels:
+      - "traefik.enable=true"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: "rabbitmq:3-alpine"
+    ports:
+      - "5672"
     restart: unless-stopped
+  heimdalld:
+    build: &ref_0
+      args:
+        UPSTREAM_VERSION: v0.2.4
+      context: ./polygon/heimdall
+      dockerfile: Dockerfile
+    volumes:
+      - "polygon_heimdall_data:/root/.heimdalld"
+    ports:
+      - "26656:26656"
+      - "127.0.0.1:26657:26657"
+    depends_on:
+      - rabbitmq
+      - geth
+    environment:
+      - MONIKER=StakeSquid
+      - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2021-11-29.tar.gz
+      - BOOTSTRAP=0
+      - "ETH1_RPC_URL=http://geth-mainnet:8545"
+    restart: unless-stopped
+  heimdallr:
+    depends_on:
+      - geth
+    environment:
+      - REST_SERVER=1
+      - "ETH1_RPC_URL=http://geth:8545"
+    build: *ref_0
+    volumes:
+      - "polygon_heimdall_data:/root/.heimdalld"
+    ports:
+      - "1317"
+    depends_on:
+      - heimdalld
+    restart: unless-stopped
+
+  bor-archive:
+    build:
+      args:
+        UPSTREAM_VERSION: v0.2.12
+      context: ./polygon/bor
+      dockerfile: Dockerfile
+    environment:
+      - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-pruned-snapshot-2021-11-28.tar.gz
+      - BOOTSTRAP=0
+    volumes:
+      - "polygon_bor-archive_data:/datadir"
+    ports:
+      - "127.0.0.1:8545:8545"
+      - "127.0.0.1:8546:8546"
+      - "30303:30303"
+      - "30303:30303/udp"
+    depends_on:
+      - heimdallr
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.bor-archive-stripprefix.stripprefix.prefixes=/polygon-archive"
+      - "traefik.http.services.bor-archive.loadbalancer.server.port=8545"
+      - "traefik.http.routers.bor-archive.entrypoints=websecure"
+      - "traefik.http.routers.bor-archive.tls.certresolver=myresolver"
+      - "traefik.http.routers.bor-archive.rule=Host(`$DOMAIN`) && PathPrefix(`/polygon-archive`)"
+      - "traefik.http.routers.bor-archive.middlewares=bor-archive-stripprefix, ipwhitelist"
+
+  geth-mainnet:
+    image: ethereum/client-go
+    volumes:
+      - "geth-mainnet_data:/root/.ethereum"
+    command: --rpc --rpc.origins="*" --syncmode fast --ipcdisable
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/mainnet"
+      - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
+      - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/mainnet`)"
+      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
 ### WIREGUARD
 
@@ -116,6 +202,7 @@ services:
 ### VOLUMES
 
 volumes:
-  harmony_data:
+  polygon_data:
+  geth_data:
   prometheus_data:
 
