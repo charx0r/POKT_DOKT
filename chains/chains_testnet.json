@@ -1,18 +1,18 @@
 [
     {
         "id": "0020",
-        "url": "https://${DOMAIN}/goerli"
+        "url": "https://bsc-1.stakesquid-db.ml/goerli"
     },
     {
         "id": "0022",
-        "url": "https://${DOMAIN}/rinkeby"
+        "url": "https://bsc-1.stakesquid-db.ml/rinkeby"
     },
     {
         "id": "0023",
-        "url": "https://${DOMAIN}/ropsten"
+        "url": "https://bsc-1.stakesquid-db.ml/ropsten"
     },
     {
         "id": "0002",
-        "url": "https://${DOMAIN}/pokttest"
+        "url": "https://bsc-1.stakesquid-db.ml/pokttest"
     }
 ]

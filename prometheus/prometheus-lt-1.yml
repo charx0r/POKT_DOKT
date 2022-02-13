@@ -34,6 +34,12 @@ scrape_configs:
     static_configs:
       - targets: ['pushgateway:9091']
 
+  - job_name: 'haproxy'
+    scrape_interval: 10s
+    honor_labels: true
+    static_configs:
+      - targets: ['haproxy:8404']
+
   - job_name: 'pocket-lt-1'
     scrape_interval: 10s
     honor_labels: true
