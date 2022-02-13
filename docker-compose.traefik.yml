@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    expose:
+      - "8082"
+    ports:
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    command:
+      - "--api=true"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--entryPoints.metrics.address=:8082"
+      - "--metrics.prometheus.entryPoint=metrics"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # TESTING
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=$MAIL"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - "./traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - chains
+    #labels:
+    #  - "traefik.enable=true"
+    #  - "prometheus-scrape.enabled=true"
+    #  - "prometheus-scrape.port=8082"
+    #  - "prometheus-scrape.job_name=traefik"
+
+
+networks:
+  chains:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.0.1/27
