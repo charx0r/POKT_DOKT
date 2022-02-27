@@ -23,6 +23,6 @@ RUN apk add --no-cache ca-certificates curl jq
 COPY --from=builder /bor/build/bin/bor /usr/local/bin/
 
 # Set entrypoint
-COPY ./scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./scripts/entrypoint_new.sh /usr/local/bin/entrypoint.sh
 RUN chmod u+x /usr/local/bin/entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

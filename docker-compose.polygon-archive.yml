@@ -41,54 +41,60 @@ services:
   heimdalld:
     build: &ref_0
       args:
-        UPSTREAM_VERSION: v0.2.4
+        UPSTREAM_VERSION: v0.2.5
       context: ./polygon/heimdall
       dockerfile: Dockerfile
     volumes:
-      - "polygon_heimdall_data:/root/.heimdalld"
+      - "heimdall_data:/root/.heimdalld"
     ports:
       - "26656:26656"
       - "127.0.0.1:26657:26657"
     depends_on:
       - rabbitmq
-      - geth
+      - heimdall-geth
     environment:
       - MONIKER=StakeSquid
       - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2021-11-29.tar.gz
       - BOOTSTRAP=0
-      - "ETH1_RPC_URL=http://geth-mainnet:8545"
+      - "ETH1_RPC_URL=http://heimdall-geth:8545/"
+      #- "ETH1_RPC_URL=https://mainnet.infura.io/v3/7fdd73988ee54ca1942566b8d55a69e8"
     restart: unless-stopped
+    networks:
+      - chains
+
   heimdallr:
-    depends_on:
-      - geth
     environment:
       - REST_SERVER=1
-      - "ETH1_RPC_URL=http://geth:8545"
+      #- "ETH1_RPC_URL=https://mainnet.infura.io/v3/7fdd73988ee54ca1942566b8d55a69e8"
+      - "ETH1_RPC_URL=http://heimdall-geth:8545/"
     build: *ref_0
     volumes:
-      - "polygon_heimdall_data:/root/.heimdalld"
+      - "heimdall_data:/root/.heimdalld"
     ports:
       - "1317"
     depends_on:
       - heimdalld
+      - heimdall-geth
     restart: unless-stopped
+    networks:
+      - chains
 
-  bor-archive:
+  bor:
     build:
       args:
-        UPSTREAM_VERSION: v0.2.12
+        UPSTREAM_VERSION: v0.2.14
       context: ./polygon/bor
       dockerfile: Dockerfile
     environment:
       - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-pruned-snapshot-2021-11-28.tar.gz
       - BOOTSTRAP=0
     volumes:
-      - "polygon_bor-archive_data:/datadir"
+      - "bor-archive_data:/datadir"
     ports:
       - "127.0.0.1:8545:8545"
       - "127.0.0.1:8546:8546"
-      - "30303:30303"
-      - "30303:30303/udp"
+      - "40303:40303"
+      - "40303:40303/udp"
     depends_on:
       - heimdallr
     restart: unless-stopped
@@ -101,22 +107,41 @@ services:
       - "traefik.http.routers.bor-archive.tls.certresolver=myresolver"
       - "traefik.http.routers.bor-archive.rule=Host(`$DOMAIN`) && PathPrefix(`/polygon-archive`)"
       - "traefik.http.routers.bor-archive.middlewares=bor-archive-stripprefix, ipwhitelist"
+    networks:
+      - chains
 
-  geth-mainnet:
-    image: ethereum/client-go
-    volumes:
-      - "geth-mainnet_data:/root/.ethereum"
-    command: --rpc --rpc.origins="*" --syncmode fast --ipcdisable
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
-      - "traefik.http.middlewares.geth-mainnet-stripprefix.stripprefix.prefixes=/mainnet"
-      - "traefik.http.services.geth-mainnet.loadbalancer.server.port=8545"
-      - "traefik.http.routers.geth-mainnet.entrypoints=websecure"
-      - "traefik.http.routers.geth-mainnet.tls.certresolver=myresolver"
-      - "traefik.http.routers.geth-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/mainnet`)"
-      - "traefik.http.routers.geth-mainnet.middlewares=geth-mainnet-stripprefix, ipwhitelist"
 
+  heimdall-geth:
+    image: ethereum/client-go:stable
+    expose:
+      # HTTP server / GraphQL API
+      - 8545
+    command:
+      [
+        # Blockchain sync mode ("snap", "full" or "light")
+        "--syncmode=light",
+        # Megabytes of memory allocated to internal caching
+        "--cache=8192",
+        # Enable the WS-RPC server
+        "--ws",
+        "--ws.addr=0.0.0.0",
+        # Enable the HTTP-RPC server
+        "--http",
+        "--http.addr=0.0.0.0",
+        "--http.vhosts=*",
+        # Enable GraphQL on the HTTP-RPC server. Note that GraphQL can only be started if an HTTP server is started as well.
+        "--graphql",
+        "--graphql.vhosts=*",
+        # Enable metrics collection and reporting
+        "--metrics",
+        # Ethereum mainnet
+        "--mainnet",
+        # Maximum number of network peers (network disabled if set to 0) (default: 50)
+        "--maxpeers=30"
+      ]
+    networks:
+      - chains
+      
 ### WIREGUARD
 
   wireguard:
@@ -202,7 +227,14 @@ services:
 ### VOLUMES
 
 volumes:
-  polygon_data:
-  geth_data:
+  bor-archive_data:
+  heimdall_data:
+  geth-mainnet_data:
   prometheus_data:
 
+networks:
+  chains:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.0.1/27
