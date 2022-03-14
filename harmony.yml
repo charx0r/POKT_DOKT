@@ -22,8 +22,7 @@ services:
       - "6000"
       - "30303"
     volumes:
-      - harmony:/harmony/
-      - ./harmony/log:/harmony/log
+      - ./harmony:/harmony/
       - ./bootstrap_skript/harmony.sh:/harmony.sh
     networks:
       - chains
