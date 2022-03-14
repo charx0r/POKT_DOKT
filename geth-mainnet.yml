@@ -1,4 +1,7 @@
-geth-mainnet:                         
+version: '3.1'
+
+services:
+  geth-mainnet:                         
     image: ethereum/client-go:stable
     expose: 
       # HTTP server / GraphQL API 
