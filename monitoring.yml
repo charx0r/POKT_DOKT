@@ -37,7 +37,7 @@ services:
     image: prom/prometheus:v2.30.3
     container_name: prometheus
     volumes:
-      - ./prometheus/prometheus.autodiscover.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/prometheus-autodiscover.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus:rw
       - prometheus-docker-sd:/prometheus-docker-sd:ro
     command:
