@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  geth-rinkeby:
+    image: ethereum/client-go:latest
+    expose:
+      - "8545"
+      - "6060"
+      - "30303"
+    volumes:
+      - geth-rinkeby:/.rinkeby
+    networks:
+      - chains
+    command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3 --metrics.addr 0.0.0.0 --pprof.addr 0.0.0.0"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.geth-rinkeby-stripprefix.stripprefix.prefixes=/rinkeby"
+      - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
+      - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"
+      - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
+      - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
+      - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, ipwhitelist"
+
+volumes:
+    geth-rinkeby:  

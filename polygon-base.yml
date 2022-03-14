@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+
+  rabbitmq:                                        
+    container_name: rabbitmq                       
+    image: "rabbitmq:3-alpine"                                                                                                                                                                              
+    ports:                                         
+      - "5672"                                                                                                                                                                                              
+    restart: unless-stopped  
+
+  heimdalld:                  
+    build: &ref_0          
+      args:                                                                                           
+        UPSTREAM_VERSION: v0.2.7                                                                      
+      context: ./polygon/heimdall         
+      dockerfile: Dockerfile                                                                          
+    volumes:                             
+      - "heimdall_data:/root/.heimdalld"                                                              
+    ports:                                                                                            
+      - "26656:26656"                       
+      - "127.0.0.1:26657:26657" 
+    depends_on:              
+      - rabbitmq                                                                                      
+      - geth-mainnet                                                                                  
+    environment:                                                                                      
+      - MONIKER=StakeSquid                                                                            
+      - SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2022-02-20.tar.gz
+      - BOOTSTRAP=1                                                                                   
+      - "ETH1_RPC_URL=http://geth-mainnet:8545/"                                                      
+    restart: unless-stopped                                                                           
+    networks: 
+      - chains
+
+  heimdallr:                            
+    environment:                    
+      - REST_SERVER=1
+      - "ETH1_RPC_URL=http://geth-mainnet:8545/"
+    build: *ref_0              
+    volumes:                    
+      - "heimdall_data:/root/.heimdalld"                                                              
+    ports:                 
+      - "1317"
+    depends_on:                                                                                       
+      - heimdalld                                                                                     
+      - geth-mainnet                      
+    restart: unless-stopped                                                                           
+    networks:          
+      - chains                             
+
+volumes:  
+  heimdall_data:

@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  avalanche:
+    image: avaplatform/avalanchego
+    expose:
+      - "9650"
+      - "9651"
+    ports:
+      - "9651:9651/tcp"
+      - "9651:9651/udp"
+    volumes:
+      - avalanche:/root/.avalanchego
+    networks:
+      - chains
+    command: "/avalanchego/build/avalanchego --http-host="
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.avalanche-stripprefix.stripprefix.prefixes=/avalanche"
+      - "traefik.http.services.avalanche.loadbalancer.server.port=8545"
+      - "traefik.http.routers.avalanche.entrypoints=websecure"
+      - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
+      - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
+      - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, ipwhitelist"
+
+volumes:
+  avalanche:

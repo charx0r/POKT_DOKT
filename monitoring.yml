@@ -1,35 +1,6 @@
 version: '3.1'
 
 services:
-  harmony-mainnet:
-    build: ./harmony/build
-    command: bash -c "/harmony.sh && /binary --log.dir /harmony/log --run.shard 1 --dns.zone t.hmny.io --http.ip 0.0.0.0 --datadir /harmony"
-    sysctls:
-      net.core.somaxconn: 1024
-      # net.core.netdev_max_backlog: 65536
-      net.ipv4.tcp_tw_reuse: 1
-      net.ipv4.tcp_rmem: 4096 65536 16777216
-      net.ipv4.tcp_wmem: 4096 65536 16777216
-      # net.ipv4.tcp_mem: 65536 131072 262144
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 65535
-        hard: 65535
-    expose:
-      - "9500"
-      - "9000"
-      - "6000"
-      - "9900"
-    ports:
-      - 9000:9000/tcp
-      - 6000:6000/tcp
-    volumes:
-      - harmony_data:/harmony/
-      - ./harmony/keyfiles:/.hmy/blskeys
-      - ./harmony/log:/harmony/log
-      - ./bootstrap_skript/harmony.sh:/harmony.sh
-    restart: unless-stopped
 
 ### WIREGUARD
 
@@ -66,8 +37,9 @@ services:
     image: prom/prometheus:v2.30.3
     container_name: prometheus
     volumes:
-      - ./prometheus/prometheus-harmony.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
+      - ./prometheus/prometheus.autodiscover.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus:rw
+      - prometheus-docker-sd:/prometheus-docker-sd:ro
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -81,6 +53,13 @@ services:
       org.label-schema.group: "monitoring"
     depends_on:
       - wireguard
+
+  prometheus-docker-sd:
+    image: "stucky/prometheus-docker-sd:latest"
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prometheus-docker-sd:/prometheus-docker-sd:rw
 
   nodeexporter:
     image: prom/node-exporter:v1.2.2
@@ -121,6 +100,5 @@ services:
 ### VOLUMES
 
 volumes:
-  harmony_data:
   prometheus_data:
-
+  prometheus-docker-sd:

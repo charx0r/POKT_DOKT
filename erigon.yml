@@ -1,0 +1,41 @@
+version: '3.1'
+
+services:
+  erigon-trace:
+    image: thorax/erigon
+    expose:
+    - "30303"
+    - "30304"
+    - "9090"
+    volumes:
+      - erigon-trace:/home/erigon/.local/share/erigon
+    networks:
+      - chains
+    command: erigon --chain mainnet --metrics --metrics.addr=0.0.0.0 --metrics.port=6060 --private.api.addr=0.0.0.0:9090 --pprof --pprof.addr=0.0.0.0 --pprof.port=6061
+    restart: unless-stopped
+
+  rpcdaemon:
+    image: thorax/erigon:latest
+    command: rpcdaemon --datadir=/home/erigon/.local/share/erigon --private.api.addr=erigon-trace:9090 --txpool.api.addr=erigon-trace:9090 --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --http.api=eth,erigon,web3,net,debug,trace,txpool --ws
+    pid: service:erigon-trace # Use erigon's PID namespace. It's required to open Erigon's DB from another process (RPCDaemon local-mode)
+    volumes:
+      - erigon-trace:/home/erigon/.local/share/erigon
+    networks:
+      - chains
+    expose:
+      - "8545"
+    restart: unless-stopped
+    depends_on:
+      - "erigon-trace"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
+      - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
+      - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
+      - "traefik.http.routers.rpcdaemon.tls.certresolver=myresolver"
+      - "traefik.http.routers.rpcdaemon.rule=Host(`$DOMAIN`) && PathPrefix(`/erigon`)"
+      - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, ipwhitelist"
+
+volumes:
+    erigon-trace_data:  
