@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   geth-goerli:
-    image: ethereum/client-go:latest
+    image: ethereum/client-go:v1.10.16
     expose:
       - "8545"
       - "6060"
