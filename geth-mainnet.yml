@@ -45,3 +45,6 @@ services:
       - "traefik.http.routers.mainnet.tls.certresolver=myresolver"                                    
       - "traefik.http.routers.mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/mainnet`)"                 
       - "traefik.http.routers.mainnet.middlewares=mainnet-stripprefix, ipwhitelist"
+
+volumes:
+    geth-mainnet_data:
