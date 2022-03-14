@@ -11,7 +11,7 @@ services:
       - BOOTSTRAP=0
       - ARCHIVE=1
     volumes:                  
-      - "bor_data:/datadir"
+      - "bor-archive_data:/datadir"
     ports:                   
       - "40303:40303"                                                                                 
       - "40303:40303/udp"                
