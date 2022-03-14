@@ -38,4 +38,4 @@ services:
       - "traefik.http.routers.rpcdaemon.middlewares=rpcdaemon-stripprefix, ipwhitelist"
 
 volumes:
-    erigon-trace_data:  
+    erigon-trace:  
