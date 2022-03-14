@@ -31,4 +31,4 @@ services:
       - chains
 
 volumes:  
-    bor_data:
+    bor-archive_data:
