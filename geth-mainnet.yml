@@ -38,7 +38,6 @@ services:
       - "geth-mainnet_data:/root/.ethereum" 
     labels:                     
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"                     
       - "traefik.http.middlewares.mainnet-stripprefix.stripprefix.prefixes=/mainnet"                  
       - "traefik.http.services.mainnet.loadbalancer.server.port=8545"                                 
       - "traefik.http.routers.mainnet.entrypoints=websecure"                                          

@@ -17,7 +17,6 @@ services:
       - chains
     labels:                                                                              
       - "traefik.enable=true"                                                            
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"        
       - "traefik.http.middlewares.bsc-stripprefix.stripprefix.prefixes=/bsc"             
       - "traefik.http.services.bsc.loadbalancer.server.port=8545"                        
       - "traefik.http.routers.bsc.entrypoints=websecure"                                 

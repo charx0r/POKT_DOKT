@@ -31,11 +31,12 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - chains
-    #labels:
-    #  - "traefik.enable=true"
-    #  - "prometheus-scrape.enabled=true"
-    #  - "prometheus-scrape.port=8082"
-    #  - "prometheus-scrape.job_name=traefik"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=8082"
+      - "prometheus-scrape.job_name=traefik"
 
 
 networks:

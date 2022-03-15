@@ -20,7 +20,6 @@ services:
     restart: unless-stopped                 
     labels:                     
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"                     
       - "traefik.http.middlewares.bor-stripprefix.stripprefix.prefixes=/polygon-archive"                      
       - "traefik.http.services.bor.loadbalancer.server.port=8545"                                     
       - "traefik.http.routers.bor.entrypoints=websecure"                                              

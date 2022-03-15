@@ -25,7 +25,6 @@ services:
       - chains
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.pocket-mainnet-stripprefix.stripprefix.prefixes=/pokt"
       - "traefik.http.services.pocket-mainner.loadbalancer.server.port=8081"
       - "traefik.http.routers.pocket-mainnet.entrypoints=websecure"

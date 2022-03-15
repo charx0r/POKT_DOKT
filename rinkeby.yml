@@ -15,7 +15,6 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.geth-rinkeby-stripprefix.stripprefix.prefixes=/rinkeby"
       - "traefik.http.services.geth-rinkeby.loadbalancer.server.port=8545"
       - "traefik.http.routers.geth-rinkeby.entrypoints=websecure"

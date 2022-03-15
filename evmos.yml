@@ -17,7 +17,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.evmos-stripprefix.stripprefix.prefixes=/evmos"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.services.evmos.loadbalancer.server.port=8545"
       - "traefik.http.routers.evmos.entrypoints=websecure"
       - "traefik.http.routers.evmos.tls.certresolver=myresolver"

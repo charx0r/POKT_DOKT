@@ -34,7 +34,6 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.fuse-stripprefix.stripprefix.prefixes=/fuse"
       - "traefik.http.services.fuse.loadbalancer.server.port=8545"
       - "traefik.http.routers.fuse.entrypoints=websecure"

@@ -29,7 +29,6 @@ services:
       - "erigon-trace"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
       - "traefik.http.middlewares.rpcdaemon-stripprefix.stripprefix.prefixes=/erigon"
       - "traefik.http.services.rpcdaemon.loadbalancer.server.port=8545"
       - "traefik.http.routers.rpcdaemon.entrypoints=websecure"
