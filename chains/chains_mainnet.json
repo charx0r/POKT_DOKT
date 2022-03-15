@@ -4,6 +4,10 @@
         "url": "https://${DOMAIN}/pokt"
     },
     {
+        "id": "0004",
+        "url": "https://${DOMAIN}/bsc"
+    },
+    {
         "id": "0005",
         "url": "https://${DOMAIN}/fuse"
     },

@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
+      - "traefik.http.middlewares.xdai-stripprefix.stripprefix.prefixes=/xdai"
       - "traefik.http.services.xdai.loadbalancer.server.port=8545"
       - "traefik.http.routers.xdai.entrypoints=websecure"
       - "traefik.http.routers.xdai.tls.certresolver=myresolver"
