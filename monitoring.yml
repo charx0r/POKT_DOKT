@@ -52,7 +52,7 @@ services:
       - 9090
     ports:
       - 127.0.0.1:9090:9090
-    network:
+    networks:
       - mon
     labels:
       org.label-schema.group: "monitoring"
