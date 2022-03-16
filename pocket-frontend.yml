@@ -47,8 +47,8 @@ services:
       - "prometheus-scrape.job_name=haproxy"
       - "prometheus-scrape.metrics_path=/metrics"
 
-  pocket:
-    image: poktnetwork/pocket-core:stagenet-latest
+  pocket:    
+    build: pokt
     ports:
       - "127.0.0.1:8081:8081"
       - "26657:26656"
@@ -57,17 +57,12 @@ services:
       - 26660
       - 8081
       - 8083
-    command: /home/app/.pocket/pokt_mainnet.sh && pocket start --seeds=$POCKET_MAIN_SEEDS --mainnet
-    #command: pocket start --simulateRelay
     environment:
       - POCKET_CORE_KEY=$POCKET_CORE_KEY
       - POCKET_CORE_PASSPHRASE=$POCKET_CORE_PASSPHRASE
       - POCKET_SNAPSHOT=$POCKET_SNAPSHOT
     volumes:
-      - ./bootstrap_skript/pokt_mainnet.sh:/home/app/.pocket/pokt_mainnet.sh
-      - ./chains/chains_mainnet.json:/home/app/.pocket/config/chains.json
-      - ./pokt/config.json:/home/app/.pocket/config/config.json
-      - pocket:/home/app/.pocket
+      - pocket:/home/app/.pocket/data
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
