@@ -48,11 +48,20 @@ services:
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
     restart: unless-stopped
-    network_mode: "service:wireguard"
+    expose:
+      - 9090
+    ports:
+      - 127.0.0.1:9090:9090
+    network:
+      - mon
     labels:
       org.label-schema.group: "monitoring"
     depends_on:
-      - wireguard
+      - prometheus-docker-sd
+
+#    network_mode: "service:wireguard"
+#    depends_on:
+#      - wireguard
 
   prometheus-docker-sd:
     image: "stucky/prometheus-docker-sd:latest"
