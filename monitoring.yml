@@ -52,6 +52,8 @@ services:
       - 9090
     ports:
       - 127.0.0.1:9090:9090
+    networks:
+      - chains
     labels:
       org.label-schema.group: "monitoring"
     depends_on:
