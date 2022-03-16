@@ -11,7 +11,7 @@ services:
       - geth-rinkeby:/.rinkeby
     networks:
       - chains
-    command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3 --metrics.addr 0.0.0.0 --pprof.addr 0.0.0.0"
+    command: "--rinkeby --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .rinkeby --verbosity 3 --metrics --metrics.addr 0.0.0.0"
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -21,6 +21,10 @@ services:
       - "traefik.http.routers.geth-rinkeby.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-rinkeby.rule=Host(`$DOMAIN`) && PathPrefix(`/rinkeby`)"
       - "traefik.http.routers.geth-rinkeby.middlewares=geth-rinkeby-stripprefix, ipwhitelist"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=6060"
+      - "prometheus-scrape.job_name=rinkeby"
+      - "prometheus-scrape.metrics_path=/debug/metrics/prometheus"
 
 volumes:
     geth-rinkeby:  

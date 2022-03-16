@@ -26,7 +26,8 @@ services:
         "--graphql",                               
         "--graphql.vhosts=*",             
         # Enable metrics collection and reporting                                                     
-        "--metrics",          
+        "--metrics",
+        "--metrics.addr=0.0.0.0",
         # Ethereum mainnet
         "--mainnet",                                                                                  
         # Maximum number of network peers (network disabled if set to 0) (default: 50)                

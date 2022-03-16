@@ -11,7 +11,7 @@ services:
       - geth-goerli:/.goerli
     networks:
       - chains
-    command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3 --metrics.addr 0.0.0.0 --pprof.addr 0.0.0.0"
+    command: "--goerli --http --http.api eth,net --http.addr 0.0.0.0 --http.port 8545 --http.vhosts=* --syncmode full --datadir .goerli --verbosity 3 --metrics --metrics.addr 0.0.0.0"
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.geth-goerli-stripprefix.stripprefix.prefixes=/goerli"
@@ -20,6 +20,10 @@ services:
       - "traefik.http.routers.geth-goerli.tls.certresolver=myresolver"
       - "traefik.http.routers.geth-goerli.rule=Host(`$DOMAIN`) && PathPrefix(`/goerli`)"
       - "traefik.http.routers.geth-goerli.middlewares=geth-goerli-stripprefix, ipwhitelist"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=6060"
+      - "prometheus-scrape.job_name=goerli"
+      - "prometheus-scrape.metrics_path=/debug/metrics/prometheus"
 
 volumes:
     geth-goerli:  
