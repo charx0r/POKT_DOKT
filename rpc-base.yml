@@ -31,7 +31,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - chains
-      - mon
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.ipwhitelist.ipwhitelist.sourcerange=$WHITELIST"
@@ -39,13 +38,9 @@ services:
       - "prometheus-scrape.port=8082"
       - "prometheus-scrape.job_name=traefik"
 
-
 networks:
   chains:
     driver: bridge
     ipam:
      config:
        - subnet: 192.168.0.1/27
-  mon:
-    driver: bridge
-    internal: true
