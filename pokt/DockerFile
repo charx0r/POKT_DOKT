@@ -1,0 +1,9 @@
+FROM poktnetwork/pocket-core:RC-0.7.1
+
+COPY config.json /home/app/.pocket/config/config.json
+COPY chains.json /home/app/.pocket/config/chains.json
+COPY bootstrap.sh /home/app/.pocket/bootstrap.sh
+
+RUN chown 1005:1001 /home/app/.pocket/config/chains.json
+
+CMD ["bash", "/home/app/.pocket/bootstrap.sh", "&&", "pocket", "start", "--seeds=${POCKET_MAIN_SEEDS}", "--mainnet"]
