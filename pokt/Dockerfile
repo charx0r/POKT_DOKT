@@ -1,6 +1,6 @@
 FROM poktnetwork/pocket-core:RC-0.7.1
 
-COPY config.json /home/app/.pocket/config/config.json
+COPY --chown=1005:1001 config.json /home/app/.pocket/config/config.json
 COPY --chown=1005:1001 chains.json /home/app/.pocket/config/chains.json
 COPY bootstrap.sh /home/app/.pocket/bootstrap.sh
 
