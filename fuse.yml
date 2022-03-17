@@ -41,6 +41,9 @@ services:
       - "traefik.http.routers.fuse.tls.certresolver=myresolver"
       - "traefik.http.routers.fuse.rule=Host(`$DOMAIN`) && PathPrefix(`/fuse`)"
       - "traefik.http.routers.fuse.middlewares=fuse-stripprefix, ipwhitelist"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=3000"
+      - "prometheus-scrape.job_name=fusenet"
 
 volumes:
     fusenet_data:
