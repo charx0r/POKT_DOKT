@@ -26,6 +26,10 @@ services:
       - "traefik.http.routers.avalanche.tls.certresolver=myresolver"
       - "traefik.http.routers.avalanche.rule=Host(`$DOMAIN`) && PathPrefix(`/avalanche`)"
       - "traefik.http.routers.avalanche.middlewares=avalanche-stripprefix, avalanche-replacepath, ipwhitelist"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=9650"
+      - "prometheus-scrape.job_name=avalanche"
+      - "prometheus-scrape.metrics_path=/ext/metrics"
 
 volumes:
   avalanche:
