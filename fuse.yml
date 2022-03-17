@@ -13,6 +13,7 @@ services:
   fusenet:
     image: fusenet/node:2.0.1
     expose:
+      - "3000"
       - "8545"
       - "8546"
       - "30303"
@@ -30,7 +31,7 @@ services:
       - fusenet_config:/config/custom
     networks:
       - chains
-    command: "--role node --parity-args --no-warp --node-key 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --jsonrpc-threads 1 --jsonrpc-server-threads 4"
+    command: "--role node --parity-args --no-warp --node-key 0xeb5Ca1d019e9D8b9aa9C47991993C84d1062628d --jsonrpc-threads 1 --jsonrpc-server-threads 4 --metrics --metrics-interface=0.0.0.0"
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
