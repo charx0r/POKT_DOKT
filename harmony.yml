@@ -35,6 +35,9 @@ services:
       - "traefik.http.routers.harmony-mainnet.tls.certresolver=myresolver"
       - "traefik.http.routers.harmony-mainnet.rule=Host(`$DOMAIN`) && PathPrefix(`/harmony`)"
       - "traefik.http.routers.harmony-mainnet.middlewares=harmony-mainnet-stripprefix, ipwhitelist"
+      - "prometheus-scrape.enabled=true"
+      - "prometheus-scrape.port=9900"
+      - "prometheus-scrape.job_name=harmony-mainnet"
 
 volumes:
     harmony:  
