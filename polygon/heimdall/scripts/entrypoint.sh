@@ -1,6 +1,6 @@
-#!/bin/sh                                                                                                                                                                                           [1/1829]
-                                                   
-# exit script on any error                         
+#!/bin/sh
+
+# exit script on any error
 set -e
 
 # Set Heimdall Home Directory

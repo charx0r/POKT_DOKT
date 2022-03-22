@@ -12,8 +12,8 @@ services:
   heimdalld:                  
     build: &ref_0          
       args:                                                                                           
-        UPSTREAM_VERSION: v0.2.7                                                                      
-      context: ./polygon/heimdall         
+        UPSTREAM_VERSION: v0.2.8
+        context: ./polygon/heimdall
       dockerfile: Dockerfile                                                                          
     volumes:                             
       - "heimdall_data:/root/.heimdalld"                                                              
