@@ -8,6 +8,10 @@
         "url": "http://haproxy/fuse"
     },
     {
+        "id": "0009",
+        "url": "http://haproxy/polygon"
+    },
+    {
         "id": "0021",
         "url": "http://haproxy/erigon"
     },
