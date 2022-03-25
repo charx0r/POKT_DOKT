@@ -31,7 +31,7 @@ if [ "${BOOTSTRAP}" == 1 ] && [ -n "${SNAPSHOT_URL}" ] && [ ! -f "${BOR_HOME}/bo
 then
   echo "downloading snapshot from ${SNAPSHOT_URL}"
   mkdir -p ${BOR_HOME}/bor/chaindata
-  wget --retry-connrefused --tries=0 --wait=10 --waitretry=5 -O - "${SNAPSHOT_URL}" | tar -xz -C ${BOR_HOME}/bor/chaindata && touch ${BOR_HOME}/bootstrapped
+  wget --tries=0 --wait=10 --waitretry=5 -O - "${SNAPSHOT_URL}" | tar -xz -C ${BOR_HOME}/bor/chaindata && touch ${BOR_HOME}/bootstrapped
 fi
 
 READY=$(curl -s http://heimdalld:26657/status | jq '.result.sync_info.catching_up')
