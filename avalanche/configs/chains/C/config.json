@@ -5,7 +5,6 @@
     "eth-apis": [
       "public-eth",
       "public-eth-filter",
-      "eth",
       "net",
       "web3",
       "internal-public-eth",
