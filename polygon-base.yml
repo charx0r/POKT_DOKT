@@ -5,7 +5,7 @@ services:
   rabbitmq:                                        
     container_name: rabbitmq                       
     image: "rabbitmq:3-alpine"                                                                                                                                                                              
-    ports:                                         
+    expose:
       - "5672"                                                                                                                                                                                              
     restart: unless-stopped  
 
