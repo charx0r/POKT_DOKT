@@ -4,6 +4,10 @@
         "url": "http://haproxy/pokt"
     },
     {
+        "id": "0004",
+        "url": "http://haproxy/bsc"
+    },
+    {
         "id": "0005",
         "url": "http://haproxy/fuse"
     },
