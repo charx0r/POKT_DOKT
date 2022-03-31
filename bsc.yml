@@ -22,7 +22,7 @@ services:
       - "traefik.http.routers.bsc.entrypoints=websecure"                                 
       - "traefik.http.routers.bsc.tls.certresolver=myresolver"                           
       - "traefik.http.routers.bsc.rule=Host(`$DOMAIN`) && PathPrefix(`/bsc`)"            
-      - "traefik.http.routers.bsc.middlewares=avalanche-stripprefix, ipwhitelist" 
+      - "traefik.http.routers.bsc.middlewares=bsc-stripprefix, ipwhitelist"
 
 volumes:
     bsc_data:
